@@ -1,8 +1,0 @@
-2024-01-15 10:30:45.123 INFO [User: ALICE] User login successful
-2024-01-15 10:31:22.456 DEBUG [User: BOB] Document access requested
-2024-01-15 10:32:10.789 ERROR [User: ALICE] Permission denied for sensitive file
-2024-01-15 11:15:30.111 INFO [User: CHARLIE] File upload completed
-2024-01-15 11:20:45.222 WARN [User: BOB] Multiple failed login attempts
-2024-01-16 09:00:15.333 INFO [User: ALICE] New session started
-2024-01-16 09:05:22.444 INFO [User: CHARLIE] Dashboard viewed
-2024-01-16 10:30:45.555 ERROR [User: BOB] Database connection failed
