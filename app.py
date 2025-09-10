@@ -13,6 +13,35 @@ hourly_path = Path("out/hourly_active_users.csv")
 daily_path = Path("out/daily_active_users.csv")
 peak_hours_path = Path("out/peak_hours_analysis.csv")
 
+# Sort usage data paths
+sort_field_path = Path("out/sort_field_summary.csv")
+sort_direction_path = Path("out/sort_direction_summary.csv")
+sort_combination_path = Path("out/sort_combination_summary.csv")
+daily_sort_path = Path("out/daily_sort_usage.csv")
+
+# Folder selection data paths
+folder_popularity_path = Path("out/folder_popularity_summary.csv")
+daily_folder_path = Path("out/daily_folder_usage.csv")
+hourly_folder_path = Path("out/hourly_folder_usage.csv")
+user_folder_patterns_path = Path("out/user_folder_patterns.csv")
+folder_summary_path = Path("out/folder_selection_summary.csv")
+
+# Employee filter data paths
+employee_filter_fields_path = Path("out/employee_filter_fields.csv")
+employee_filter_types_path = Path("out/employee_filter_types.csv")
+daily_employee_filter_path = Path("out/daily_employee_filter_usage.csv")
+hourly_employee_filter_path = Path("out/hourly_employee_filter_usage.csv")
+user_employee_filter_path = Path("out/user_employee_filter_patterns.csv")
+employee_filter_summary_path = Path("out/employee_filter_summary.csv")
+
+# Document filter data paths
+document_filter_fields_path = Path("out/document_filter_fields.csv")
+document_filter_types_path = Path("out/document_filter_types.csv")
+daily_document_filter_path = Path("out/daily_document_filter_usage.csv")
+hourly_document_filter_path = Path("out/hourly_document_filter_usage.csv")
+user_document_filter_path = Path("out/user_document_filter_patterns.csv")
+document_filter_summary_path = Path("out/document_filter_summary.csv")
+
 # Check if core data exists
 if not csv_path.exists():
     st.info("No user agent data yet. Run the VS Code task **Run UA analysis** first.")
@@ -33,8 +62,83 @@ if daily_path.exists():
 if peak_hours_path.exists():
     peak_hours_df = pl.read_csv(peak_hours_path)
 
+# Load sort usage data if available
+sort_field_df = None
+sort_direction_df = None
+sort_combination_df = None
+daily_sort_df = None
+
+if sort_field_path.exists():
+    sort_field_df = pl.read_csv(sort_field_path)
+if sort_direction_path.exists():
+    sort_direction_df = pl.read_csv(sort_direction_path)
+if sort_combination_path.exists():
+    sort_combination_df = pl.read_csv(sort_combination_path)
+if daily_sort_path.exists():
+    daily_sort_df = pl.read_csv(daily_sort_path)
+
+# Load folder selection data if available
+folder_popularity_df = None
+daily_folder_df = None
+hourly_folder_df = None
+user_folder_patterns_df = None
+folder_summary_df = None
+
+if folder_popularity_path.exists():
+    folder_popularity_df = pl.read_csv(folder_popularity_path)
+if daily_folder_path.exists():
+    daily_folder_df = pl.read_csv(daily_folder_path)
+if hourly_folder_path.exists():
+    hourly_folder_df = pl.read_csv(hourly_folder_path)
+if user_folder_patterns_path.exists():
+    user_folder_patterns_df = pl.read_csv(user_folder_patterns_path)
+if folder_summary_path.exists():
+    folder_summary_df = pl.read_csv(folder_summary_path)
+
+# Load employee filter data if available
+employee_filter_fields_df = None
+employee_filter_types_df = None
+daily_employee_filter_df = None
+hourly_employee_filter_df = None
+user_employee_filter_df = None
+employee_filter_summary_df = None
+
+if employee_filter_fields_path.exists():
+    employee_filter_fields_df = pl.read_csv(employee_filter_fields_path)
+if employee_filter_types_path.exists():
+    employee_filter_types_df = pl.read_csv(employee_filter_types_path)
+if daily_employee_filter_path.exists():
+    daily_employee_filter_df = pl.read_csv(daily_employee_filter_path)
+if hourly_employee_filter_path.exists():
+    hourly_employee_filter_df = pl.read_csv(hourly_employee_filter_path)
+if user_employee_filter_path.exists():
+    user_employee_filter_df = pl.read_csv(user_employee_filter_path)
+if employee_filter_summary_path.exists():
+    employee_filter_summary_df = pl.read_csv(employee_filter_summary_path)
+
+# Load document filter data if available
+document_filter_fields_df = None
+document_filter_types_df = None
+daily_document_filter_df = None
+hourly_document_filter_df = None
+user_document_filter_df = None
+document_filter_summary_df = None
+
+if document_filter_fields_path.exists():
+    document_filter_fields_df = pl.read_csv(document_filter_fields_path)
+if document_filter_types_path.exists():
+    document_filter_types_df = pl.read_csv(document_filter_types_path)
+if daily_document_filter_path.exists():
+    daily_document_filter_df = pl.read_csv(daily_document_filter_path)
+if hourly_document_filter_path.exists():
+    hourly_document_filter_df = pl.read_csv(hourly_document_filter_path)
+if user_document_filter_path.exists():
+    user_document_filter_df = pl.read_csv(user_document_filter_path)
+if document_filter_summary_path.exists():
+    document_filter_summary_df = pl.read_csv(document_filter_summary_path)
+
 # Create tabs for different views
-tab1, tab2, tab3 = st.tabs(["User Agents", "Active Users", "Peak Hours Analysis"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["User Agents", "Active Users", "Peak Hours Analysis", "Sort Usage", "Folder Selection", "Employee Filter", "Document Filter"])
 
 with tab1:
     st.header("Browser & Device Analysis")
@@ -165,3 +269,488 @@ with tab3:
             
             st.subheader("Peak Hours Details")
             st.dataframe(peak_hours_df.to_pandas(), use_container_width=True)
+
+with tab4:
+    st.header("Sort Functionality Usage Analysis")
+    
+    if sort_field_df is None or sort_direction_df is None or sort_combination_df is None:
+        st.info("No sort usage data yet. Run the VS Code task **Run Sort Usage analysis** first.")
+        st.markdown("```python src/analyze_sort_usage.py --input logs/splits --output out```")
+    else:
+        # Overview KPIs
+        if sort_field_df.height > 0:
+            st.subheader("Sort Usage Overview")
+            col1, col2, col3, col4 = st.columns(4)
+            
+            total_sort_actions = sort_field_df["total_uses"].sum()
+            users_using_sort = sort_field_df["unique_users"].sum()
+            total_fields_used = sort_field_df.height
+            most_popular_field = sort_field_df.row(0) if sort_field_df.height > 0 else None
+            
+            # Calculate percentage of users using sort functionality
+            total_users_in_system = df["user_id"].n_unique() if df.height > 0 else 0
+            sort_usage_percentage = (users_using_sort / total_users_in_system * 100) if total_users_in_system > 0 else 0
+            
+            col1.metric("Total Sort Actions", total_sort_actions)
+            col2.metric("Users Using Sort", f"{users_using_sort} ({sort_usage_percentage:.1f}%)")
+            col3.metric("Different Fields Sorted", total_fields_used)
+            if most_popular_field:
+                col4.metric("Most Popular Field", most_popular_field[0], f"{most_popular_field[1]} uses")
+        
+        # Sort field popularity
+        if sort_field_df.height > 0:
+            st.subheader("Most Popular Sort Fields")
+            field_chart = (
+                alt.Chart(sort_field_df.to_pandas())
+                .mark_bar()
+                .encode(
+                    x=alt.X("sort_field:N", title="Sort Field", sort="-y"),
+                    y=alt.Y("total_uses:Q", title="Total Uses"),
+                    color=alt.Color("total_uses:Q", scale=alt.Scale(scheme="blues")),
+                    tooltip=["sort_field", "total_uses", "unique_users", "days_used"]
+                )
+                .properties(height=400)
+            )
+            st.altair_chart(field_chart, use_container_width=True)
+            
+            st.subheader("Sort Field Details")
+            st.dataframe(sort_field_df.to_pandas(), use_container_width=True)
+        
+        # ASC vs DESC preference
+        if sort_direction_df.height > 0:
+            st.subheader("Sort Direction Preference")
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                direction_chart = (
+                    alt.Chart(sort_direction_df.to_pandas())
+                    .mark_arc(innerRadius=50)
+                    .encode(
+                        theta=alt.Theta("total_uses:Q"),
+                        color=alt.Color("sort_direction:N", title="Direction"),
+                        tooltip=["sort_direction", "total_uses", "unique_users"]
+                    )
+                    .properties(height=300)
+                )
+                st.altair_chart(direction_chart, use_container_width=True)
+            
+            with col2:
+                st.subheader("Direction Statistics")
+                st.dataframe(sort_direction_df.to_pandas(), use_container_width=True)
+        
+        # Most popular combinations
+        if sort_combination_df.height > 0:
+            st.subheader("Most Popular Sort Combinations")
+            # Show top 10 combinations
+            top_combinations = sort_combination_df.head(10)
+            
+            combination_chart = (
+                alt.Chart(top_combinations.to_pandas())
+                .mark_bar()
+                .encode(
+                    x=alt.X("sort_combination:N", title="Sort Combination", sort="-y"),
+                    y=alt.Y("total_uses:Q", title="Total Uses"),
+                    color=alt.Color("total_uses:Q", scale=alt.Scale(scheme="viridis")),
+                    tooltip=["sort_combination", "total_uses", "unique_users", "days_used"]
+                )
+                .properties(height=400)
+            )
+            st.altair_chart(combination_chart, use_container_width=True)
+            
+            st.subheader("All Sort Combinations")
+            st.dataframe(sort_combination_df.to_pandas(), use_container_width=True)
+        
+        # Daily sort usage trend
+        if daily_sort_df is not None and daily_sort_df.height > 0:
+            st.subheader("Daily Sort Usage Trend")
+            
+            daily_chart = (
+                alt.Chart(daily_sort_df.to_pandas())
+                .mark_line(point=True)
+                .encode(
+                    x=alt.X("date:T", title="Date"),
+                    y=alt.Y("total_sort_actions:Q", title="Total Sort Actions"),
+                    tooltip=["date", "total_sort_actions", "users_using_sort", "different_fields_sorted"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(daily_chart, use_container_width=True)
+
+with tab5:
+    st.header("Folder Selection Analysis")
+    
+    if folder_popularity_df is None or folder_popularity_df.height == 0:
+        st.info("No folder selection data available. This could mean that either the analyzer hasn't been run yet or there are no FolderSelected events in the logs.")
+        st.markdown("**Run the VS Code task 'Run Folder Selection analysis' to generate this data.**")
+    else:
+        # Get summary statistics for KPIs
+        users_using_folders = 0
+        total_users = 0
+        percentage_using_folders = 0.0
+        
+        if folder_summary_df is not None and folder_summary_df.height > 0:
+            summary_dict = dict(zip(folder_summary_df["metric"].to_list(), folder_summary_df["value"].to_list()))
+            users_using_folders = int(summary_dict.get("users_using_folders", "0"))
+            total_users = int(summary_dict.get("total_users_in_system", "0"))
+            percentage_using_folders = float(summary_dict.get("percentage_users_using_folders", "0.0"))
+        
+        # Folder selection KPIs
+        col1, col2, col3, col4 = st.columns(4)
+        
+        total_selections = folder_popularity_df["total_selections"].sum()
+        unique_folders = folder_popularity_df.height
+        max_folder_usage = folder_popularity_df["total_selections"].max()
+        most_used_folder = folder_popularity_df.filter(
+            pl.col("total_selections") == max_folder_usage
+        )["folder_name"].first()
+        
+        col1.metric("Total Folder Selections", f"{total_selections:,}")
+        col2.metric("Different Folders Used", unique_folders)
+        col3.metric("Most Selections for One Folder", max_folder_usage)
+        col4.metric("Most Popular Folder", most_used_folder)
+        
+        # User adoption metrics
+        st.subheader("User Adoption")
+        col1, col2, col3 = st.columns(3)
+        
+        col1.metric("Users Using Folders", f"{users_using_folders:,}")
+        col2.metric("Total Users in System", f"{total_users:,}")
+        col3.metric("Adoption Percentage", f"{percentage_using_folders:.1f}%")
+        
+        # Folder popularity
+        if folder_popularity_df.height > 0:
+            st.subheader("Folder Popularity")
+            
+            # Calculate percentage for top 10 folders
+            top_folders = folder_popularity_df.head(10)
+            chart_data = top_folders.with_columns([
+                (pl.col("total_selections") / total_selections * 100).round(1).alias("percentage")
+            ]).to_pandas()
+            
+            folder_chart = (
+                alt.Chart(chart_data)
+                .mark_bar()
+                .encode(
+                    x=alt.X("total_selections:Q", title="Total Selections"),
+                    y=alt.Y("folder_name:N", title="Folder Name", sort="-x"),
+                    color=alt.Color("total_selections:Q", scale=alt.Scale(scheme='blues')),
+                    tooltip=["folder_name", "total_selections", "percentage:Q", "unique_users"]
+                )
+                .properties(height=400)
+            )
+            st.altair_chart(folder_chart, use_container_width=True)
+            
+            # Show the data table
+            display_df = top_folders.with_columns([
+                (pl.col("total_selections") / total_selections * 100).round(1).alias("percentage")
+            ])
+            st.dataframe(display_df, use_container_width=True)
+        
+        # Daily folder usage
+        if daily_folder_df is not None and daily_folder_df.height > 0:
+            st.subheader("Daily Folder Selection Activity")
+            
+            # Use bar chart for better visualization of discrete daily data
+            daily_folder_chart = (
+                alt.Chart(daily_folder_df.to_pandas())
+                .mark_bar()
+                .encode(
+                    x=alt.X("date:T", title="Date"),
+                    y=alt.Y("total_folder_selections:Q", title="Total Folder Selections"),
+                    color=alt.Color("total_folder_selections:Q", scale=alt.Scale(scheme='blues')),
+                    tooltip=["date", "total_folder_selections", "users_selecting_folders", "different_folders_selected"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(daily_folder_chart, use_container_width=True)
+            
+            # Show the actual data since there are only a few data points
+            st.markdown("**Daily breakdown:**")
+            st.dataframe(daily_folder_df, use_container_width=True)
+        
+        # Hourly patterns
+        if hourly_folder_df is not None and hourly_folder_df.height > 0:
+            st.subheader("Hourly Folder Selection Patterns")
+            
+            hourly_folder_chart = (
+                alt.Chart(hourly_folder_df.to_pandas())
+                .mark_bar()
+                .encode(
+                    x=alt.X("hour:O", title="Hour of Day"),
+                    y=alt.Y("total_folder_selections:Q", title="Total Folder Selections"),
+                    color=alt.Color("total_folder_selections:Q", scale=alt.Scale(scheme='viridis')),
+                    tooltip=["hour", "total_folder_selections", "avg_users_selecting", "different_folders_selected"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(hourly_folder_chart, use_container_width=True)
+        
+        # User folder behavior
+        if user_folder_patterns_df is not None and user_folder_patterns_df.height > 0:
+            st.subheader("User Folder Selection Behavior")
+            
+            # Top users by folder selections
+            top_users = user_folder_patterns_df.head(20).to_pandas()
+            
+            user_chart = (
+                alt.Chart(top_users)
+                .mark_bar()
+                .encode(
+                    x=alt.X("total_folder_selections:Q", title="Total Folder Selections"),
+                    y=alt.Y("user_id:N", title="User ID", sort="-x"),
+                    color=alt.Color("different_folders_used:Q", scale=alt.Scale(scheme='oranges')),
+                    tooltip=["user_id", "total_folder_selections", "different_folders_used", "most_used_folder"]
+                )
+                .properties(height=500)
+            )
+            st.altair_chart(user_chart, use_container_width=True)
+
+with tab6:
+    st.header("Employee Filter Analysis")
+    
+    if employee_filter_fields_df is None or employee_filter_fields_df.height == 0:
+        st.info("No employee filter data available. This could mean that either the analyzer hasn't been run yet or there are no Employee filter events in the logs.")
+        st.markdown("**Run the VS Code task 'Run Employee Filter analysis' to generate this data.**")
+    else:
+        # Get summary statistics for KPIs
+        users_using_filters = 0
+        total_users = 0
+        percentage_using_filters = 0.0
+        
+        if employee_filter_summary_df is not None and employee_filter_summary_df.height > 0:
+            summary_dict = dict(zip(employee_filter_summary_df["metric"].to_list(), employee_filter_summary_df["value"].to_list()))
+            users_using_filters = int(summary_dict.get("users_using_filters", "0"))
+            total_users = int(summary_dict.get("total_users_in_system", "0"))
+            percentage_using_filters = float(summary_dict.get("percentage_users_using_filters", "0.0"))
+            most_popular_field = summary_dict.get("most_popular_field", "N/A")
+            most_common_type = summary_dict.get("most_common_filter_type", "N/A")
+        
+        # Employee filter KPIs
+        col1, col2, col3, col4 = st.columns(4)
+        
+        total_filters = employee_filter_fields_df["total_filters"].sum()
+        different_fields = employee_filter_fields_df.height
+        
+        col1.metric("Total Employee Filters", f"{total_filters:,}")
+        col2.metric("Different Fields Filtered", different_fields)
+        col3.metric("Most Popular Field", most_popular_field)
+        col4.metric("Most Common Filter Type", most_common_type)
+        
+        # User adoption metrics
+        st.subheader("User Adoption")
+        col1, col2, col3 = st.columns(3)
+        
+        col1.metric("Users Using Employee Filters", f"{users_using_filters:,}")
+        col2.metric("Total Users in System", f"{total_users:,}")
+        col3.metric("Adoption Percentage", f"{percentage_using_filters:.1f}%")
+        
+        # Filter field popularity
+        if employee_filter_fields_df.height > 0:
+            st.subheader("Field Usage Popularity")
+            
+            # Show top 10 fields
+            top_fields = employee_filter_fields_df.head(10)
+            field_chart_data = top_fields.with_columns([
+                (pl.col("total_filters") / total_filters * 100).round(1).alias("percentage")
+            ]).to_pandas()
+            
+            field_chart = (
+                alt.Chart(field_chart_data)
+                .mark_bar()
+                .encode(
+                    x=alt.X("total_filters:Q", title="Total Filters Applied"),
+                    y=alt.Y("field_name:N", title="Field Name", sort="-x"),
+                    color=alt.Color("total_filters:Q", scale=alt.Scale(scheme='greens')),
+                    tooltip=["field_name", "total_filters", "percentage:Q", "unique_users"]
+                )
+                .properties(height=400)
+            )
+            st.altair_chart(field_chart, use_container_width=True)
+            
+            # Show the data table
+            display_df = top_fields.with_columns([
+                (pl.col("total_filters") / total_filters * 100).round(1).alias("percentage")
+            ])
+            st.dataframe(display_df, use_container_width=True)
+        
+        # Filter type distribution
+        if employee_filter_types_df is not None and employee_filter_types_df.height > 0:
+            st.subheader("Filter Type Distribution")
+            
+            type_chart = (
+                alt.Chart(employee_filter_types_df.to_pandas())
+                .mark_arc(innerRadius=50)
+                .encode(
+                    theta=alt.Theta("total_usage:Q", title="Usage Count"),
+                    color=alt.Color("filter_type:N", title="Filter Type"),
+                    tooltip=["filter_type", "total_usage", "unique_users", "different_fields"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(type_chart, use_container_width=True)
+            
+            # Show type breakdown
+            st.dataframe(employee_filter_types_df, use_container_width=True)
+        
+        # Daily filter usage
+        if daily_employee_filter_df is not None and daily_employee_filter_df.height > 0:
+            st.subheader("Daily Employee Filter Activity")
+            
+            daily_filter_chart = (
+                alt.Chart(daily_employee_filter_df.to_pandas())
+                .mark_bar()
+                .encode(
+                    x=alt.X("date:T", title="Date"),
+                    y=alt.Y("total_filters:Q", title="Total Employee Filters"),
+                    color=alt.Color("total_filters:Q", scale=alt.Scale(scheme='oranges')),
+                    tooltip=["date", "total_filters", "users_using_filters", "different_fields_filtered"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(daily_filter_chart, use_container_width=True)
+            
+            # Show daily breakdown
+            st.markdown("**Daily breakdown:**")
+            st.dataframe(daily_employee_filter_df, use_container_width=True)
+        
+        # Hourly patterns
+        if hourly_employee_filter_df is not None and hourly_employee_filter_df.height > 0:
+            st.subheader("Hourly Employee Filter Patterns")
+            
+            hourly_filter_chart = (
+                alt.Chart(hourly_employee_filter_df.to_pandas())
+                .mark_bar()
+                .encode(
+                    x=alt.X("hour:O", title="Hour of Day"),
+                    y=alt.Y("total_filters:Q", title="Total Employee Filters"),
+                    color=alt.Color("total_filters:Q", scale=alt.Scale(scheme='purples')),
+                    tooltip=["hour", "total_filters", "users_using_filters", "different_fields_filtered"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(hourly_filter_chart, use_container_width=True)
+
+with tab7:
+    st.header("Document Filter Analysis")
+    
+    if document_filter_fields_df is None or document_filter_fields_df.height == 0:
+        st.info("No document filter data available. This could mean that either the analyzer hasn't been run yet or there are no Document filter events in the logs.")
+        st.markdown("**Run the VS Code task 'Run Document Filter analysis' to generate this data.**")
+    else:
+        # Get summary statistics for KPIs
+        users_using_filters = 0
+        total_users = 0
+        percentage_using_filters = 0.0
+        
+        if document_filter_summary_df is not None and document_filter_summary_df.height > 0:
+            summary_dict = dict(zip(document_filter_summary_df["metric"].to_list(), document_filter_summary_df["value"].to_list()))
+            users_using_filters = int(summary_dict.get("users_using_filters", "0"))
+            total_users = int(summary_dict.get("total_users_in_system", "0"))
+            percentage_using_filters = float(summary_dict.get("percentage_users_using_filters", "0.0"))
+            most_popular_field = summary_dict.get("most_popular_field", "N/A")
+            most_common_type = summary_dict.get("most_common_filter_type", "N/A")
+        
+        # Document filter KPIs
+        col1, col2, col3, col4 = st.columns(4)
+        
+        total_filters = document_filter_fields_df["total_filters"].sum()
+        different_fields = document_filter_fields_df.height
+        
+        col1.metric("Total Document Filters", f"{total_filters:,}")
+        col2.metric("Different Fields Filtered", different_fields)
+        col3.metric("Most Popular Field", most_popular_field)
+        col4.metric("Most Common Filter Type", most_common_type)
+        
+        # User adoption metrics
+        st.subheader("User Adoption")
+        col1, col2, col3 = st.columns(3)
+        
+        col1.metric("Users Using Document Filters", f"{users_using_filters:,}")
+        col2.metric("Total Users in System", f"{total_users:,}")
+        col3.metric("Adoption Percentage", f"{percentage_using_filters:.1f}%")
+        
+        # Filter field popularity
+        if document_filter_fields_df.height > 0:
+            st.subheader("Field Usage Popularity")
+            
+            # Show top 10 fields
+            top_fields = document_filter_fields_df.head(10)
+            field_chart_data = top_fields.with_columns([
+                (pl.col("total_filters") / total_filters * 100).round(1).alias("percentage")
+            ]).to_pandas()
+            
+            field_chart = (
+                alt.Chart(field_chart_data)
+                .mark_bar()
+                .encode(
+                    x=alt.X("total_filters:Q", title="Total Filters Applied"),
+                    y=alt.Y("field_name:N", title="Field Name", sort="-x"),
+                    color=alt.Color("total_filters:Q", scale=alt.Scale(scheme='blues')),
+                    tooltip=["field_name", "total_filters", "percentage:Q", "unique_users"]
+                )
+                .properties(height=400)
+            )
+            st.altair_chart(field_chart, use_container_width=True)
+            
+            # Show the data table
+            display_df = top_fields.with_columns([
+                (pl.col("total_filters") / total_filters * 100).round(1).alias("percentage")
+            ])
+            st.dataframe(display_df, use_container_width=True)
+        
+        # Filter type distribution
+        if document_filter_types_df is not None and document_filter_types_df.height > 0:
+            st.subheader("Filter Type Distribution")
+            
+            type_chart = (
+                alt.Chart(document_filter_types_df.to_pandas())
+                .mark_arc(innerRadius=50)
+                .encode(
+                    theta=alt.Theta("total_usage:Q", title="Usage Count"),
+                    color=alt.Color("filter_type:N", title="Filter Type"),
+                    tooltip=["filter_type", "total_usage", "unique_users", "different_fields"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(type_chart, use_container_width=True)
+            
+            # Show type breakdown
+            st.dataframe(document_filter_types_df, use_container_width=True)
+        
+        # Daily filter usage
+        if daily_document_filter_df is not None and daily_document_filter_df.height > 0:
+            st.subheader("Daily Document Filter Activity")
+            
+            daily_filter_chart = (
+                alt.Chart(daily_document_filter_df.to_pandas())
+                .mark_bar()
+                .encode(
+                    x=alt.X("date:T", title="Date"),
+                    y=alt.Y("total_filters:Q", title="Total Document Filters"),
+                    color=alt.Color("total_filters:Q", scale=alt.Scale(scheme='teals')),
+                    tooltip=["date", "total_filters", "users_using_filters", "different_fields_filtered"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(daily_filter_chart, use_container_width=True)
+            
+            # Show daily breakdown
+            st.markdown("**Daily breakdown:**")
+            st.dataframe(daily_document_filter_df, use_container_width=True)
+        
+        # Hourly patterns
+        if hourly_document_filter_df is not None and hourly_document_filter_df.height > 0:
+            st.subheader("Hourly Document Filter Patterns")
+            
+            hourly_filter_chart = (
+                alt.Chart(hourly_document_filter_df.to_pandas())
+                .mark_bar()
+                .encode(
+                    x=alt.X("hour:O", title="Hour of Day"),
+                    y=alt.Y("total_filters:Q", title="Total Document Filters"),
+                    color=alt.Color("total_filters:Q", scale=alt.Scale(scheme='viridis')),
+                    tooltip=["hour", "total_filters", "users_using_filters", "different_fields_filtered"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(hourly_filter_chart, use_container_width=True)

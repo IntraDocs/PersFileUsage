@@ -7,7 +7,10 @@
             "dependsOn": [
                 "Run splitter",
                 "Run UA analysis",
-                "Run Active Users analysis"
+                "Run Active Users analysis",
+                "Run Sort Usage analysis",
+                "Run Folder Selection analysis",
+                "Run Employee Filter analysis"
             ],
             "group": {
                 "kind": "build",
@@ -126,6 +129,72 @@
             }
         },
         {
+            "label": "Run Sort Usage analysis",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+            "args": [
+                "src/analyze_sort_usage.py",
+                "--input",
+                "logs/splits",
+                "--output",
+                "out"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Run Folder Selection analysis",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+            "args": [
+                "src/analyze_folder_selection.py",
+                "--input",
+                "logs/splits",
+                "--output",
+                "out"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Run Employee Filter analysis",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+            "args": [
+                "src/analyze_employee_filter.py",
+                "--input",
+                "logs/splits",
+                "--output",
+                "out"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
             "label": "Run Streamlit dashboard",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe",
@@ -136,6 +205,28 @@
                 "app.py",
                 "--server.headless",
                 "true"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Run Document Filter analysis",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+            "args": [
+                "src/analyze_document_filter.py",
+                "--input",
+                "logs/splits",
+                "--output",
+                "out"
             ],
             "group": "build",
             "presentation": {

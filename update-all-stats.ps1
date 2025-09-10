@@ -1,5 +1,21 @@
 # update-all-stats.ps1
-# Complete analysis pipeline for Personnel File Portal logs
+# Complete analysis p# Step 6: Analyze employee filters
+Write-Host "`n=== Step 6: Analyzing employee filters ===" -ForegroundColor Yellow
+& .\.venv\Scripts\python.exe src/analyze_employee_filter.py --input logs/splits --output out
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Error in employee filter analysis. Exiting." -ForegroundColor Red
+    exit 1
+}
+
+# Step 7: Analyze document filters
+Write-Host "`n=== Step 7: Analyzing document filters ===" -ForegroundColor Yellow
+& .\.venv\Scripts\python.exe src/analyze_document_filter.py --input logs/splits --output out
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Error in document filter analysis. Exiting." -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "`n=== Analysis Complete! ===" -ForegroundColor Greenor Personnel File Portal logs
 
 Write-Host "Starting complete analysis pipeline..." -ForegroundColor Green
 
@@ -24,6 +40,30 @@ Write-Host "`n=== Step 3: Analyzing active users ===" -ForegroundColor Yellow
 & .\.venv\Scripts\python.exe src/analyze_active_users.py --input logs/splits --output out
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Error in active users analysis. Exiting." -ForegroundColor Red
+    exit 1
+}
+
+# Step 4: Analyze sort usage
+Write-Host "`n=== Step 4: Analyzing sort usage ===" -ForegroundColor Yellow
+& .\.venv\Scripts\python.exe src/analyze_sort_usage.py --input logs/splits --output out
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Error in sort usage analysis. Exiting." -ForegroundColor Red
+    exit 1
+}
+
+# Step 5: Analyze folder selection
+Write-Host "`n=== Step 5: Analyzing folder selection ===" -ForegroundColor Yellow
+& .\.venv\Scripts\python.exe src/analyze_folder_selection.py --input logs/splits --output out
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Error in folder selection analysis. Exiting." -ForegroundColor Red
+    exit 1
+}
+
+# Step 6: Analyze employee filter usage
+Write-Host "`n=== Step 6: Analyzing employee filter usage ===" -ForegroundColor Yellow
+& .\.venv\Scripts\python.exe src/analyze_employee_filter.py --input logs/splits --output out
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Error in employee filter analysis. Exiting." -ForegroundColor Red
     exit 1
 }
 

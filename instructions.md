@@ -12,11 +12,12 @@
 This ensures consistency and maintainability for international development teams.
 
 ## Project Overview
-This project analyzes log files from the Youforce Personnel File Portal. It consists of four main components:
+This project analyzes log files from the Youforce Personnel File Portal. It consists of five main components:
 1. **Log Splitter**: Splits daily log files by date and user
 2. **User Agent Analyzer**: Analyzes browser and device usage by users
 3. **Active Users Analyzer**: Analyzes user activity per hour and day
-4. **Streamlit Dashboard**: Visualizes all analysis results in an interactive interface
+4. **Sort Usage Analyzer**: Analyzes usage patterns of sort functionality
+5. **Streamlit Dashboard**: Visualizes all analysis results in an interactive interface
 
 ## Complete Workflow
 
@@ -38,6 +39,7 @@ update-all-stats.bat
 
 ### Step 1: Log Splitting
 - Place raw log files in `logs/raw/` directory (e.g. `Youforce_Personnel_File_Portal_JWT_User_SD-P-DOIIS25.log`)
+- **Supported formats**: Both `.log` and `.arc` files are processed automatically
 - Run: `python src/split_logs_by_user.py` or VS Code task "Run splitter"
 - Output: `logs/splits/YYYY-MM-DD/{USER}.log` files
 
@@ -49,7 +51,11 @@ update-all-stats.bat
 - Run: `python src/analyze_active_users.py --input logs/splits --output out` or VS Code task "Run Active Users analysis"
 - Output: Hourly and daily activity statistics in `out/` directory
 
-### Step 4: Dashboard Viewing
+### Step 4: Sort Usage Analysis
+- Run: `python src/analyze_sort_usage.py --input logs/splits --output out` or VS Code task "Run Sort Usage analysis"
+- Output: Sort functionality usage statistics in `out/` directory
+
+### Step 5: Dashboard Viewing
 - Run: `streamlit run app.py` or VS Code task "Run Streamlit dashboard"
 - Open browser to the displayed URL for interactive dashboard with all analyses
 
@@ -82,6 +88,7 @@ Components:
 3. If both found: append line to appropriate output file
 4. Create directories automatically
 5. Skip lines without user or date
+6. **Processes both `.log` and `.arc` files from raw directory**
 
 ### User Agent Analyzer (`analyze_user_agents.py`)
 1. Scan all `.log` files in `logs/splits/`
@@ -117,6 +124,7 @@ Use Ctrl+Shift+P → "Tasks: Run Task":
 - **"Run tests"**: Run unit tests  
 - **"Run UA analysis"**: Run user agent analysis only
 - **"Run Active Users analysis"**: Run user activity analysis only
+- **"Run Sort Usage analysis"**: Run sort functionality analysis only
 - **"Run Streamlit dashboard"**: Start web dashboard
 - **"Install requirements"**: Install Python dependencies
 
@@ -160,6 +168,13 @@ Use Ctrl+Shift+P → "Tasks: Run Task":
 - **Peak/Quiet Hours**: Identification of busiest and quietest hours
 - **Planning Insights**: Data for system maintenance and resource planning
 
+### Tab 4: Sort Usage Analysis
+- **Sort Field Popularity**: Which fields are sorted most often
+- **Direction Preference**: ASC vs DESC usage patterns
+- **Popular Combinations**: Most used field+direction combinations
+- **Daily Trends**: Sort usage trends over time
+- **Usage Statistics**: Total actions, unique users, field diversity
+
 ## Regex Patterns
 ```python
 # Date extraction (start of line)
@@ -195,6 +210,14 @@ TIMESTAMP_USER_PATTERN = r'^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\
 - `out/daily_active_users.csv`: Daily user statistics  
 - `out/peak_hours_analysis.csv`: Peak hours analysis (all days combined)
 - `out/user_activity_summary.csv`: Per-user activity overview
+
+### Sort Usage Analysis
+- `out/sort_field_summary.csv`: Sort field popularity statistics
+- `out/sort_direction_summary.csv`: ASC vs DESC usage statistics
+- `out/sort_combination_summary.csv`: Field+direction combination statistics
+- `out/daily_sort_usage.csv`: Daily sort usage trends
+- `out/hourly_sort_usage.csv`: Hourly sort usage patterns
+- `out/user_sort_patterns.csv`: Per-user sort behavior analysis
 
 ### Log Splitting
 - `logs/splits/YYYY-MM-DD/{USER}.log`: Split log files per user per day

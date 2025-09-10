@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 ### Usage
 
-1. Place your log files in `logs/raw/` directory (*.log files)
+1. Place your log files in `logs/raw/` directory (*.log and *.arc files)
 2. Run the splitter:
 
 ```powershell
@@ -45,7 +45,7 @@ pytest tests/ -v
 ```
 pf-logs/
 ├── logs/
-│   ├── raw/          # Input log files (*.log)
+│   ├── raw/          # Input log files (*.log and *.arc)
 │   └── splits/       # Output files by date/user
 ├── src/
 │   ├── __init__.py

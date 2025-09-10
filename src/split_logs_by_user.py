@@ -1,6 +1,7 @@
 """
 Log splitter for personnel file portal logs.
 Splits daily logs by user into separate files.
+Supports both .log and .arc file formats.
 """
 import re
 import logging
@@ -75,24 +76,28 @@ def split_one_file(in_path: Path) -> int:
 
 
 def main():
-    """Main function to process all log files in logs/raw directory."""
+    """Main function to process all log and arc files in logs/raw directory."""
     raw_logs_dir = Path('logs/raw')
     
     if not raw_logs_dir.exists():
         logger.error(f"Raw logs directory does not exist: {raw_logs_dir}")
         return
     
+    # Find both .log and .arc files
     log_files = list(raw_logs_dir.glob('*.log'))
+    arc_files = list(raw_logs_dir.glob('*.arc'))
+    all_files = log_files + arc_files
     
-    if not log_files:
-        logger.warning(f"No .log files found in {raw_logs_dir}")
+    if not all_files:
+        logger.warning(f"No .log or .arc files found in {raw_logs_dir}")
         return
     
     total_lines = 0
     
-    logger.info(f"Found {len(log_files)} log files to process")
+    logger.info(f"Found {len(log_files)} .log files and {len(arc_files)} .arc files to process")
+    logger.info(f"Total files to process: {len(all_files)}")
     
-    for log_file in log_files:
+    for log_file in all_files:
         lines = split_one_file(log_file)
         total_lines += lines
     
