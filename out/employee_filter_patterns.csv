@@ -1,0 +1,9 @@
+filter_pattern,total_usage,unique_users,different_fields
+single_word,8893,2959,8
+>=,8320,2895,1
+<,249,191,1
+2_words,73,66,4
+3_words,23,22,3
+4_words,3,3,2
+empty,2,2,1
+=,1,1,1

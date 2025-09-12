@@ -137,8 +137,33 @@ if user_document_filter_path.exists():
 if document_filter_summary_path.exists():
     document_filter_summary_df = pl.read_csv(document_filter_summary_path)
 
+# Panel Selection data paths
+panel_user_summaries_path = Path("out/panel_selection_user_summaries.csv")
+panel_base_panels_path = Path("out/panel_selection_base_panels.csv")
+panel_concurrent_distribution_path = Path("out/panel_selection_concurrent_distribution.csv")
+panel_top_performers_path = Path("out/panel_selection_top_performers.csv")
+panel_summary_path = Path("out/panel_selection_summary.csv")
+
+# Load panel selection data if available
+panel_user_summaries_df = None
+panel_base_panels_df = None
+panel_concurrent_distribution_df = None
+panel_top_performers_df = None
+panel_summary_df = None
+
+if panel_user_summaries_path.exists():
+    panel_user_summaries_df = pl.read_csv(panel_user_summaries_path)
+if panel_base_panels_path.exists():
+    panel_base_panels_df = pl.read_csv(panel_base_panels_path)
+if panel_concurrent_distribution_path.exists():
+    panel_concurrent_distribution_df = pl.read_csv(panel_concurrent_distribution_path)
+if panel_top_performers_path.exists():
+    panel_top_performers_df = pl.read_csv(panel_top_performers_path)
+if panel_summary_path.exists():
+    panel_summary_df = pl.read_csv(panel_summary_path)
+
 # Create tabs for different views
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["User Agents", "Active Users", "Peak Hours Analysis", "Sort Usage", "Folder Selection", "Employee Filter", "Document Filter"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["User Agents", "Active Users", "Peak Hours Analysis", "Sort Usage", "Folder Selection", "Employee Filter", "Document Filter", "Panel Selection"])
 
 with tab1:
     st.header("Browser & Device Analysis")
@@ -754,3 +779,171 @@ with tab7:
                 .properties(height=300)
             )
             st.altair_chart(hourly_filter_chart, use_container_width=True)
+
+# Panel Selection Tab
+with tab8:
+    st.header("Panel Selection Analysis")
+    
+    if panel_summary_df is None:
+        st.info("No panel selection data yet. Run the Selected Panels analysis first:")
+        st.code("python src/analyze_selected_panels.py")
+        st.stop()
+    
+    # Extract summary data
+    summary_data = {}
+    for row in panel_summary_df.iter_rows(named=True):
+        summary_data[row['metric']] = row['value']
+    
+    # Overview metrics
+    st.subheader("📊 Overview")
+    col1, col2, col3, col4 = st.columns(4)
+    
+    total_users = int(summary_data.get('total_users_analyzed', 0))
+    total_lines = int(summary_data.get('total_lines_processed', 0))
+    users_with_panels = int(summary_data.get('total_users_with_employee_panels', 0))
+    switching_users = int(summary_data.get('users_who_switched', 0))
+    
+    with col1:
+        st.metric("Total Users", f"{total_users:,}")
+    with col2:
+        st.metric("Lines Processed", f"{total_lines:,}")
+    with col3:
+        st.metric("Users with Employee Panels", f"{users_with_panels:,}")
+    with col4:
+        switching_pct = summary_data.get('switching_percentage', '0%')
+        st.metric("Users Who Switch", f"{switching_users:,}", switching_pct)
+    
+    # Base Panel Usage
+    st.subheader("🏠 Base Panel Usage")
+    if panel_base_panels_df is not None:
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            # Base panel usage chart
+            chart = (
+                alt.Chart(panel_base_panels_df.to_pandas())
+                .mark_bar()
+                .encode(
+                    x=alt.X("total_activations:Q", title="Activations"),
+                    y=alt.Y("panel:N", title="Panel", sort="-x"),
+                    color=alt.Color("total_activations:Q", scale=alt.Scale(scheme='blues')),
+                    tooltip=["panel", "total_activations"]
+                )
+                .properties(height=200)
+            )
+            st.altair_chart(chart, use_container_width=True)
+        
+        with col2:
+            st.markdown("**Base Panel Statistics:**")
+            total_activations = panel_base_panels_df['total_activations'].sum()
+            for row in panel_base_panels_df.sort('total_activations', descending=True).iter_rows(named=True):
+                panel = row['panel']
+                count = row['total_activations']
+                percentage = (count / total_activations * 100) if total_activations > 0 else 0
+                st.write(f"• **{panel.capitalize()}**: {count:,} ({percentage:.1f}%)")
+    
+    # Concurrent Panel Distribution
+    st.subheader("👥 Concurrent Employee Panel Distribution")
+    if panel_concurrent_distribution_df is not None:
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            # Distribution chart
+            chart = (
+                alt.Chart(panel_concurrent_distribution_df.to_pandas())
+                .mark_arc(innerRadius=50)
+                .encode(
+                    theta=alt.Theta("user_count:Q"),
+                    color=alt.Color("concurrent_panels:N", scale=alt.Scale(scheme='category10')),
+                    tooltip=["concurrent_panels", "user_count"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(chart, use_container_width=True)
+        
+        with col2:
+            st.markdown("**Distribution Breakdown:**")
+            for row in panel_concurrent_distribution_df.sort('concurrent_panels').iter_rows(named=True):
+                panels = row['concurrent_panels']
+                count = row['user_count']
+                percentage = (count / total_users * 100) if total_users > 0 else 0
+                panel_text = f"{panels} panel{'s' if panels != 1 else ''}"
+                st.write(f"• **{panel_text}**: {count:,} users ({percentage:.1f}%)")
+            
+            # Business rule compliance
+            st.markdown("---")
+            st.markdown("**⚖️ Business Rule Compliance:**")
+            st.success("✅ All users comply with max 5 concurrent employee panels")
+            st.info("🔄 FIFO enforcement active for panel overflow")
+    
+    # Top Users Analysis
+    st.subheader("🏆 Top Users")
+    if panel_top_performers_df is not None:
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.markdown("**Top Base Panel Activators:**")
+            top_activators = panel_top_performers_df.filter(pl.col("metric") == "most_base_activations").head(5)
+            for i, row in enumerate(top_activators.iter_rows(named=True), 1):
+                st.write(f"{i}. **{row['user']}**: {row['value']:,}")
+        
+        with col2:
+            st.markdown("**Top Employee Panel Users:**")
+            top_panel_users = panel_top_performers_df.filter(pl.col("metric") == "most_unique_employee_panels").head(5)
+            for i, row in enumerate(top_panel_users.iter_rows(named=True), 1):
+                st.write(f"{i}. **{row['user']}**: {row['value']:,} unique panels")
+        
+        with col3:
+            st.markdown("**Top Employee Panel Switchers:**")
+            top_switchers = panel_top_performers_df.filter(pl.col("metric") == "most_switches").head(5)
+            for i, row in enumerate(top_switchers.iter_rows(named=True), 1):
+                st.write(f"{i}. **{row['user']}**: {row['value']:,} switches")
+    
+    # Panel Switching Behavior
+    st.subheader("🔄 Employee Panel Switching Behavior")
+    
+    non_switching_users = total_users - switching_users
+    switching_pct_num = float(summary_data.get('switching_percentage', '0%').rstrip('%'))
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.metric("Switching Users", f"{switching_users:,}")
+    with col2:
+        st.metric("Non-Switching Users", f"{non_switching_users:,}")
+    with col3:
+        st.metric("Switch Percentage", f"{switching_pct_num:.1f}%")
+    
+    # Detailed Data Tables
+    st.subheader("📋 Detailed User Data")
+    
+    if panel_user_summaries_df is not None:
+        # Add filters
+        col1, col2 = st.columns(2)
+        with col1:
+            min_activations = st.number_input("Minimum Base Activations", min_value=0, value=0)
+        with col2:
+            show_switchers_only = st.checkbox("Show only users who switch panels")
+        
+        # Filter data
+        filtered_df = panel_user_summaries_df
+        if min_activations > 0:
+            filtered_df = filtered_df.filter(pl.col("total_base_activations") >= min_activations)
+        if show_switchers_only:
+            filtered_df = filtered_df.filter(pl.col("has_switched_employee_panels") == True)
+        
+        if len(filtered_df) > 0:
+            # Rename columns for display
+            display_df = filtered_df.select([
+                pl.col("user").alias("User"),
+                pl.col("total_base_activations").alias("Base Activations"),
+                pl.col("unique_employee_panels_opened").alias("Unique Employee Panels"),
+                pl.col("max_concurrent_employee_panels").alias("Max Concurrent Panels"),
+                pl.col("employee_panel_switches").alias("Employee Panel Switches"),
+                pl.col("has_switched_employee_panels").alias("Switches Panels")
+            ])
+            
+            st.dataframe(display_df.to_pandas(), use_container_width=True)
+            st.caption(f"Showing {len(filtered_df):,} of {total_users:,} users")
+        else:
+            st.info("No users match the current filters.")

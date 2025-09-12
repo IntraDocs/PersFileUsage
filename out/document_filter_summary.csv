@@ -1,0 +1,9 @@
+metric,value
+total_document_filters,97
+users_using_filters,24
+total_users_in_system,2749
+percentage_users_using_filters,0.9
+different_fields_filtered,5
+most_popular_field,documentOmschrijving
+most_common_filter_type,single_word
+avg_filters_per_user,4.0

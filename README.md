@@ -1,18 +1,22 @@
-# PF-Logs: Personnel File Portal Log Splitter
+# Personnel File Portal Usage Dashboard
 
-This tool splits daily log files from a personnel file portal by date and user, creating organized output files for easier analysis.
+This dashboard visualizes usage data from the Personnel File Portal system. It provides insights into user behavior, browser usage, activity patterns, and feature usage.
 
-## Features
+## 🎯 Features
 
-- Splits log files by date and user
-- Streaming processing (memory efficient)
-- Preserves original log line format
-- UTF-8 encoding with error handling
-- Windows 11 compatible
+- **User Agents Analysis**: Browser, OS, and device statistics
+- **Active Users**: Daily and hourly activity patterns
+- **Peak Hours Analysis**: When the system is most actively used
+- **Sort Usage Analysis**: How users sort data in the system
+- **Folder Selection Analysis**: Which folders are most accessed
+- **Employee Filter Analysis**: How users filter employee data
+- **Document Filter Analysis**: How users filter document data
+- **Panel Selection Analysis**: Which panels users are using
+- **Data Privacy**: Only analyzed CSV results are shared, raw logs excluded
 
-## Quick Start
+## 📊 Dashboard Usage
 
-### Setup Environment
+### Run Locally
 
 ```powershell
 # Create and activate virtual environment
@@ -21,18 +25,18 @@ python -m venv .venv
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Run the dashboard
+streamlit run app.py
 ```
 
-### Usage
+### Deployed App
 
-1. Place your log files in `logs/raw/` directory (*.log and *.arc files)
-2. Run the splitter:
+This dashboard is deployed on Streamlit Cloud and can be accessed [here](https://intradocs-persfileusage.streamlit.app) (link will be active after deployment).
 
-```powershell
-python src/split_logs_by_user.py
-```
+## 🛠️ Data Generation
 
-3. Find split files in `logs/splits/YYYY-MM-DD/{USER}.log`
+The dashboard relies on CSV data files in the `out/` directory. These files are already included in the repository.
 
 ### Running Tests
 
@@ -56,21 +60,3 @@ pf-logs/
 ├── requirements.txt
 └── README.md
 ```
-
-## Log Format Requirements
-
-The tool expects log lines with:
-- Date format: `YYYY-MM-DD HH:MM:SS.mmm`
-- User format: `[User: USERNAME]`
-
-Example log line:
-```
-2024-01-15 10:30:45.123 INFO [User: USER001] Login successful
-```
-
-## VS Code Integration
-
-Use Ctrl+Shift+P and run:
-- **Tasks: Run Task** → "Run splitter"
-- **Tasks: Run Task** → "Run tests"
-- **Debug** → "Debug splitter"

@@ -1,0 +1,9 @@
+metric,value
+total_employee_filters,17564
+users_using_filters,3011
+total_users_in_system,5026
+percentage_users_using_filters,59.9
+different_fields_filtered,9
+most_popular_field,datumUitDienst
+most_common_filter_type,single_word
+avg_filters_per_user,5.8
