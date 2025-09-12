@@ -749,6 +749,14 @@ with tab7:
         if document_filter_types_df is not None and document_filter_types_df.height > 0:
             st.subheader("Filter Type Distribution")
             
+            st.info("""
+            **Filter Types Explained:**
+            - **single_word**: Filters containing a single search term (e.g., "Smith", "Contract")
+            - **multiple_words**: Filters containing multiple search terms (e.g., "John Smith", "Annual Review 2024")
+            
+            Understanding these patterns helps identify how users search for documents and can inform UI improvements.
+            """)
+            
             type_chart = (
                 alt.Chart(document_filter_types_df.to_pandas())
                 .mark_arc(innerRadius=50)
