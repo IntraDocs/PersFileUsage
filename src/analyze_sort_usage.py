@@ -175,8 +175,8 @@ def generate_user_sort_patterns(df: pl.DataFrame, output_dir: Path) -> None:
             pl.n_unique("sort_field").alias("different_fields_used"),
             pl.n_unique("sort_combination").alias("different_combinations_used"),
             pl.n_unique("date").alias("days_active_sorting"),
-            pl.mode("sort_field").first().alias("most_used_field"),
-            pl.mode("sort_direction").first().alias("preferred_direction")
+            pl.col("sort_field").mode().first().alias("most_used_field"),
+            pl.col("sort_direction").mode().first().alias("preferred_direction")
         ])
         .sort("total_sort_actions", descending=True)
     )

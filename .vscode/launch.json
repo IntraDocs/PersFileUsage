@@ -12,6 +12,16 @@
             "args": []
         },
         {
+            "name": "Debug Selected Panels analysis",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/analyze_selected_panels.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {},
+            "args": []
+        },
+        {
             "name": "Debug tests",
             "type": "python",
             "request": "launch",

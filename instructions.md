@@ -12,12 +12,13 @@
 This ensures consistency and maintainability for international development teams.
 
 ## Project Overview
-This project analyzes log files from the Youforce Personnel File Portal. It consists of five main components:
+This project analyzes log files from the Youforce Personnel File Portal. It consists of six main components:
 1. **Log Splitter**: Splits daily log files by date and user
 2. **User Agent Analyzer**: Analyzes browser and device usage by users
 3. **Active Users Analyzer**: Analyzes user activity per hour and day
 4. **Sort Usage Analyzer**: Analyzes usage patterns of sort functionality
-5. **Streamlit Dashboard**: Visualizes all analysis results in an interactive interface
+5. **Panel Selection Analyzer**: Analyzes panel switching behavior and concurrent usage patterns
+6. **Streamlit Dashboard**: Visualizes all analysis results in an interactive interface
 
 ## Complete Workflow
 
@@ -51,11 +52,21 @@ update-all-stats.bat
 - Run: `python src/analyze_active_users.py --input logs/splits --output out` or VS Code task "Run Active Users analysis"
 - Output: Hourly and daily activity statistics in `out/` directory
 
-### Step 4: Sort Usage Analysis
+### Step 4: Run Panel Selection Analysis
+```powershell
+python src/analyze_selected_panels.py logs/2024-08-25_split.log
+```
+This analyzes which panels users select and switch between, including base panels and employee panels. Results are saved to `data/panel_analysis_results.json`.
+
+### Step 6: View Results in Dashboard
 - Run: `python src/analyze_sort_usage.py --input logs/splits --output out` or VS Code task "Run Sort Usage analysis"
 - Output: Sort functionality usage statistics in `out/` directory
 
-### Step 5: Dashboard Viewing
+### Step 5: Panel Selection Analysis
+- Run: `python src/analyze_selected_panels.py logs/splits` or VS Code task "Run Panel Selection analysis"
+- Output: Panel usage patterns and concurrent panel statistics in `data/` directory
+
+### Step 6: Dashboard Viewing
 - Run: `streamlit run app.py` or VS Code task "Run Streamlit dashboard"
 - Open browser to the displayed URL for interactive dashboard with all analyses
 

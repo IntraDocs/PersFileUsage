@@ -5,6 +5,7 @@ Supports both .log and .arc file formats.
 """
 import re
 import logging
+import shutil
 from pathlib import Path
 from typing import Optional
 
@@ -78,10 +79,20 @@ def split_one_file(in_path: Path) -> int:
 def main():
     """Main function to process all log and arc files in logs/raw directory."""
     raw_logs_dir = Path('logs/raw')
+    splits_dir = Path('logs/splits')
     
     if not raw_logs_dir.exists():
         logger.error(f"Raw logs directory does not exist: {raw_logs_dir}")
         return
+    
+    # Clear the splits directory before processing
+    if splits_dir.exists():
+        logger.info(f"Clearing existing splits directory: {splits_dir}")
+        shutil.rmtree(splits_dir)
+    
+    # Recreate the splits directory
+    splits_dir.mkdir(parents=True, exist_ok=True)
+    logger.info(f"Created clean splits directory: {splits_dir}")
     
     # Find both .log and .arc files
     log_files = list(raw_logs_dir.glob('*.log'))

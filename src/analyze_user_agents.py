@@ -30,12 +30,17 @@ def parse_first_line_ua(p: Path) -> dict | None:
         if browser_family == "Edg":
             browser_family = "Microsoft Edge"
 
+        # Fix Windows 11 detection issue - Windows 11 also reports as NT 10.0
+        os_string = f"{ua.os.family or ''} {ua.os.version_string or ''}".strip()
+        if os_string == "Windows 10":
+            os_string = "Windows 10/11"
+        
         return {
             "date": date,
             "user_id": user_id,
             "raw_user_agent": raw,
             "browser": f"{browser_family} {ua.browser.version_string or ''}".strip(),
-            "os": f"{ua.os.family or ''} {ua.os.version_string or ''}".strip(),
+            "os": os_string,
             "device": (ua.device.family or "Unknown"),
             "is_mobile": ua.is_mobile,
             "is_tablet": ua.is_tablet,
