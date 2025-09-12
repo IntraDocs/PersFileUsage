@@ -8,17 +8,22 @@
 - Documentation files (including this instructions.md)
 - Error messages and logging output
 - VS Code task descriptions
+- Dashboard text and labels in the Streamlit application
 
 This ensures consistency and maintainability for international development teams.
 
 ## Project Overview
-This project analyzes log files from the Youforce Personnel File Portal. It consists of six main components:
+This project analyzes log files from the Youforce Personnel File Portal. It consists of the following main components:
 1. **Log Splitter**: Splits daily log files by date and user
 2. **User Agent Analyzer**: Analyzes browser and device usage by users
 3. **Active Users Analyzer**: Analyzes user activity per hour and day
 4. **Sort Usage Analyzer**: Analyzes usage patterns of sort functionality
-5. **Panel Selection Analyzer**: Analyzes panel switching behavior and concurrent usage patterns
-6. **Streamlit Dashboard**: Visualizes all analysis results in an interactive interface
+5. **Folder Selection Analyzer**: Analyzes folder navigation patterns
+6. **Employee Filter Analyzer**: Analyzes employee filter usage patterns
+7. **Document Filter Analyzer**: Analyzes document filter usage patterns
+8. **Panel Selection Analyzer**: Analyzes panel switching behavior and concurrent usage patterns
+9. **Miscellaneous Functions Analyzer**: Analyzes various miscellaneous functions usage
+10. **Streamlit Dashboard**: Visualizes all analysis results in an interactive interface
 
 ## Complete Workflow
 
@@ -52,21 +57,31 @@ update-all-stats.bat
 - Run: `python src/analyze_active_users.py --input logs/splits --output out` or VS Code task "Run Active Users analysis"
 - Output: Hourly and daily activity statistics in `out/` directory
 
-### Step 4: Run Panel Selection Analysis
-```powershell
-python src/analyze_selected_panels.py logs/2024-08-25_split.log
-```
-This analyzes which panels users select and switch between, including base panels and employee panels. Results are saved to `data/panel_analysis_results.json`.
-
-### Step 6: View Results in Dashboard
+### Step 4: Sort Usage Analysis
 - Run: `python src/analyze_sort_usage.py --input logs/splits --output out` or VS Code task "Run Sort Usage analysis"
 - Output: Sort functionality usage statistics in `out/` directory
 
-### Step 5: Panel Selection Analysis
-- Run: `python src/analyze_selected_panels.py logs/splits` or VS Code task "Run Panel Selection analysis"
-- Output: Panel usage patterns and concurrent panel statistics in `data/` directory
+### Step 5: Folder Selection Analysis
+- Run: `python src/analyze_folder_selection.py --input logs/splits --output out` or VS Code task "Run Folder Selection analysis"
+- Output: Folder selection patterns and statistics in `out/` directory
 
-### Step 6: Dashboard Viewing
+### Step 6: Employee Filter Analysis
+- Run: `python src/analyze_employee_filter.py --input logs/splits --output out` or VS Code task "Run Employee Filter analysis"
+- Output: Employee filter usage statistics in `out/` directory
+
+### Step 7: Document Filter Analysis
+- Run: `python src/analyze_document_filter.py --input logs/splits --output out` or VS Code task "Run Document Filter analysis"
+- Output: Document filter usage statistics in `out/` directory
+
+### Step 8: Panel Selection Analysis
+- Run: `python src/analyze_selected_panels.py` or VS Code task "Run Selected Panels analysis"
+- Output: Panel usage patterns and concurrent panel statistics in `out/` directory
+
+### Step 9: Miscellaneous Functions Analysis
+- Run: `python src/analyze_misc_functions.py --logs-dir logs --output-dir out --verbose` or VS Code task "Run Miscellaneous Functions analysis"
+- Output: Miscellaneous functions usage statistics in `out/` directory
+
+### Step 10: Dashboard Viewing
 - Run: `streamlit run app.py` or VS Code task "Run Streamlit dashboard"
 - Open browser to the displayed URL for interactive dashboard with all analyses
 
@@ -136,7 +151,13 @@ Use Ctrl+Shift+P → "Tasks: Run Task":
 - **"Run UA analysis"**: Run user agent analysis only
 - **"Run Active Users analysis"**: Run user activity analysis only
 - **"Run Sort Usage analysis"**: Run sort functionality analysis only
+- **"Run Folder Selection analysis"**: Run folder selection analysis only
+- **"Run Employee Filter analysis"**: Run employee filter analysis only
+- **"Run Document Filter analysis"**: Run document filter analysis only
+- **"Run Selected Panels analysis"**: Run panel selection analysis only
+- **"Run Miscellaneous Functions analysis"**: Run miscellaneous functions analysis only
 - **"Run Streamlit dashboard"**: Start web dashboard
+- **"Test Streamlit locally"**: Start web dashboard in local mode for testing
 - **"Install requirements"**: Install Python dependencies
 
 ## Active Users Analysis Details
@@ -164,8 +185,16 @@ Use Ctrl+Shift+P → "Tasks: Run Task":
 
 ## Dashboard Features
 
+### Dashboard Language
+All text in the Streamlit dashboard must be in English, including:
+- Tab names and headers
+- Descriptions and explanations
+- Chart labels and legends
+- Metric names and descriptions
+- Tooltips and captions
+
 ### Tab 1: User Agents
-- Browser and device analysis (existing functionality)
+- Browser and device analysis
 - KPIs: Unique users, browsers, operating systems
 - Interactive charts and filters
 
@@ -185,6 +214,43 @@ Use Ctrl+Shift+P → "Tasks: Run Task":
 - **Popular Combinations**: Most used field+direction combinations
 - **Daily Trends**: Sort usage trends over time
 - **Usage Statistics**: Total actions, unique users, field diversity
+
+### Tab 5: Folder Selection Analysis
+- **Folder Popularity**: Which folders are accessed most often
+- **Daily Trends**: Folder usage trends over time
+- **Hourly Patterns**: When folders are most accessed
+- **User Behavior**: How different users interact with folders
+
+### Tab 6: Employee Filter Analysis
+- **Filter Field Usage**: Which employee filter fields are used most often
+- **Filter Types**: Types of employee filters applied
+- **Usage Patterns**: Common employee filter combinations
+- **Daily/Hourly Trends**: When employee filters are most used
+
+### Tab 7: Document Filter Analysis
+- **Filter Field Usage**: Which document filter fields are used most often
+- **Filter Types**: Types of document filters applied
+- **Usage Patterns**: Common document filter combinations
+- **Daily/Hourly Trends**: When document filters are most used
+
+### Tab 8: Panel Selection Analysis
+- **Panel Popularity**: Most frequently used panels
+- **Base Panels**: Usage statistics for base panels
+- **Concurrent Usage**: Analysis of panels used together
+- **User Summaries**: Individual user panel selection behavior
+
+### Tab 9: Miscellaneous Functions Analysis
+- **Open Employee Dossier**: Usage statistics for "Open Employee Dossier from a document" function
+- **Assign Document(s)**: 
+  - Total usage counts, unique users, and adoption rate
+  - Document statistics: average, minimum, and maximum number of documents per assign operation
+- **Copy Document(s)**: 
+  - Total usage counts, unique users, and adoption rate
+  - Document statistics: average, minimum, and maximum number of documents per copy operation
+- **Document Viewing Statistics**: Analysis of document viewing patterns by mimetype
+- **Mimetype Distribution**: Which document types are viewed most frequently
+- **Document Download Statistics**: Analysis of document downloads and file sizes
+- **Download Size Distribution**: Breakdown of downloads by file size ranges
 
 ## Regex Patterns
 ```python
@@ -229,6 +295,43 @@ TIMESTAMP_USER_PATTERN = r'^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\
 - `out/daily_sort_usage.csv`: Daily sort usage trends
 - `out/hourly_sort_usage.csv`: Hourly sort usage patterns
 - `out/user_sort_patterns.csv`: Per-user sort behavior analysis
+
+### Folder Selection Analysis
+- `out/folder_selection_summary.csv`: General folder usage statistics
+- `out/folder_popularity_summary.csv`: Folder popularity metrics
+- `out/daily_folder_usage.csv`: Daily folder usage trends
+- `out/hourly_folder_usage.csv`: Hourly folder usage patterns
+- `out/user_folder_patterns.csv`: Per-user folder selection behavior
+
+### Employee Filter Analysis
+- `out/employee_filter_summary.csv`: General employee filter usage statistics
+- `out/employee_filter_fields.csv`: Employee filter field usage statistics
+- `out/employee_filter_types.csv`: Employee filter type usage statistics
+- `out/employee_filter_patterns.csv`: Common employee filter patterns
+- `out/daily_employee_filter_usage.csv`: Daily employee filter usage trends
+- `out/hourly_employee_filter_usage.csv`: Hourly employee filter usage patterns
+- `out/user_employee_filter_patterns.csv`: Per-user employee filter behavior
+
+### Document Filter Analysis
+- `out/document_filter_summary.csv`: General document filter usage statistics
+- `out/document_filter_fields.csv`: Document filter field usage statistics
+- `out/document_filter_types.csv`: Document filter type usage statistics
+- `out/document_filter_patterns.csv`: Common document filter patterns
+- `out/daily_document_filter_usage.csv`: Daily document filter usage trends
+- `out/hourly_document_filter_usage.csv`: Hourly document filter usage patterns
+- `out/user_document_filter_patterns.csv`: Per-user document filter behavior
+
+### Panel Selection Analysis
+- `out/panel_selection_summary.csv`: General panel selection statistics
+- `out/panel_selection_base_panels.csv`: Base panel usage statistics
+- `out/panel_selection_top_performers.csv`: Most frequently used panels
+- `out/panel_selection_concurrent_distribution.csv`: Concurrent panel usage distribution
+- `out/panel_selection_user_summaries.csv`: Per-user panel selection behavior
+
+### Miscellaneous Functions Analysis
+- `out/misc_functions.csv`: Miscellaneous functions usage statistics
+- `out/document_views.csv`: Document viewing statistics by mimetype
+- `out/document_downloads.csv`: Document download statistics and file sizes
 
 ### Log Splitting
 - `logs/splits/YYYY-MM-DD/{USER}.log`: Split log files per user per day

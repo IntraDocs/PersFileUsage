@@ -1,6 +1,7 @@
 # app.py
 import streamlit as st
 import polars as pl
+import pandas as pd
 import altair as alt
 from pathlib import Path
 
@@ -168,8 +169,59 @@ if panel_top_performers_path.exists():
 if panel_summary_path.exists():
     panel_summary_df = pl.read_csv(panel_summary_path)
 
+# Define path for miscellaneous functions data (will be added later)
+misc_functions_path = Path("out/misc_functions.csv")
+document_views_path = Path("out/document_views.csv")
+document_downloads_path = Path("out/document_downloads.csv")
+
+# Create temporary CSV data for the example
+if not misc_functions_path.exists():
+    # Create sample data for Open Employee Dossier function
+    misc_functions_df = pl.DataFrame({
+        "function_name": ["Open Employee Dossier from a document"],
+        "total_usage": [42],
+        "unique_users": [15]
+    })
+    misc_functions_df.write_csv(misc_functions_path)
+
+# Create temporary document views data
+if not document_views_path.exists():
+    # Create sample data for document views
+    document_views_df = pl.DataFrame({
+        "mimetype": ["application/pdf", "image/jpeg"],
+        "total_views": [120, 75],
+        "unique_users": [45, 30]
+    })
+    document_views_df.write_csv(document_views_path)
+
+# Create temporary document downloads data
+if not document_downloads_path.exists():
+    # Create sample data for document downloads
+    document_downloads_df = pl.DataFrame({
+        "metric": ["total_downloads", "unique_users", "avg_size_bytes", "min_size_bytes", "max_size_bytes",
+                   "median_size_bytes", "size_category_lt_10KB", "size_category_10KB_-_100KB",
+                   "size_category_100KB_-_1MB", "size_category_1MB_-_10MB", "size_category_gt_10MB"],
+        "value": [250, 75, 450000, 1024, 2500000, 325000, 25, 80, 100, 40, 5]
+    })
+    document_downloads_df.write_csv(document_downloads_path)
+
+# Load miscellaneous functions data if available
+misc_functions_df = None
+if misc_functions_path.exists():
+    misc_functions_df = pl.read_csv(misc_functions_path)
+
+# Load document views data if available
+document_views_df = None
+if document_views_path.exists():
+    document_views_df = pl.read_csv(document_views_path)
+
+# Load document downloads data if available
+document_downloads_df = None
+if document_downloads_path.exists():
+    document_downloads_df = pl.read_csv(document_downloads_path)
+
 # Create tabs for different views
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
     "🌐 User Agents", 
     "👥 Active Users", 
     "⏰ Peak Hours", 
@@ -177,7 +229,8 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
     "📁 Folders", 
     "👤 Employee Filters", 
     "📄 Document Filters", 
-    "📊 Panels"
+    "📊 Panels",
+    "🔍 Miscellaneous Functions"
 ])
 
 with tab1:
@@ -979,3 +1032,352 @@ with tab8:
             st.caption(f"Showing {len(filtered_df):,} of {total_users:,} users")
         else:
             st.info("No users match the current filters.")
+
+# Miscellaneous Functions Tab
+with tab9:
+    st.header("Miscellaneous Functions Usage")
+    st.info("""
+    This tab shows usage statistics for specific functions in the Personnel File Portal.
+    Data is collected from log files and grouped by function and mimetype.
+    """)
+    
+    # Section 1: Employee Dossier Function
+    st.subheader("Open Employee Dossier from a document")
+    st.markdown("This counts how often the 'Open Employee Dossier' function is used")
+    
+    if misc_functions_df is not None and misc_functions_df.height > 0:
+        # Get total users from User Agents tab if available
+        total_users = 0
+        if df.height > 0 and "user_id" in df.columns:
+            total_users = df["user_id"].n_unique()
+        
+        # Find the employee dossier function
+        employee_dossier_df = misc_functions_df.filter(pl.col("function_name") == "Open Employee Dossier from a document")
+        
+        if employee_dossier_df.height > 0:
+            usage_data = employee_dossier_df.row(0)
+            total_calls = usage_data[1]
+            unique_users = usage_data[2]
+            
+            # Calculate adoption rate
+            adoption_rate = 0
+            if total_users > 0:
+                adoption_rate = (unique_users / total_users) * 100
+            
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Total Usage", f"{total_calls:,}")
+            col2.metric("Unique Users", f"{unique_users:,}")
+            col3.metric("Adoption Rate", f"{adoption_rate:.1f}%")
+            
+            st.caption(f"Adoption Rate: Percentage of total users ({total_users:,}) that have used this function at least once.")
+        else:
+            st.info("No data available for Open Employee Dossier function.")
+    
+    # Section 1b: Assign Documents to Employee Function
+    st.subheader("Assign Document(s) to an Employee")
+    st.markdown("This counts how often documents are assigned to employees")
+    
+    if misc_functions_df is not None and misc_functions_df.height > 0:
+        # Get total users from User Agents tab if available
+        total_users = 0
+        if df.height > 0 and "user_id" in df.columns:
+            total_users = df["user_id"].n_unique()
+        
+        # Find the assign documents function
+        assign_docs_df = misc_functions_df.filter(pl.col("function_name") == "Assign document(s) to an employee")
+        
+        if assign_docs_df.height > 0:
+            usage_data = assign_docs_df.row(0)
+            total_calls = usage_data[1]
+            unique_users = usage_data[2]
+            
+            # Calculate adoption rate
+            adoption_rate = 0
+            if total_users > 0:
+                adoption_rate = (unique_users / total_users) * 100
+            
+            # Check if document count statistics are available
+            has_doc_stats = "total_documents" in assign_docs_df.columns
+            
+            if has_doc_stats:
+                doc_data = assign_docs_df.row(0)
+                total_docs = doc_data[assign_docs_df.columns.index("total_documents")]
+                avg_docs = doc_data[assign_docs_df.columns.index("avg_documents")]
+                min_docs = doc_data[assign_docs_df.columns.index("min_documents")]
+                max_docs = doc_data[assign_docs_df.columns.index("max_documents")]
+                
+                col1, col2, col3, col4, col5, col6 = st.columns(6)
+                col1.metric("Total Usage", f"{total_calls:,}")
+                col2.metric("Unique Users", f"{unique_users:,}")
+                col3.metric("Adoption Rate", f"{adoption_rate:.1f}%")
+                col4.metric("Avg Documents/Action", f"{avg_docs:.1f}")
+                col5.metric("Min Documents", f"{min_docs}")
+                col6.metric("Max Documents", f"{max_docs}")
+            else:
+                col1, col2, col3 = st.columns(3)
+                col1.metric("Total Usage", f"{total_calls:,}")
+                col2.metric("Unique Users", f"{unique_users:,}")
+                col3.metric("Adoption Rate", f"{adoption_rate:.1f}%")
+            
+            st.caption(f"Adoption Rate: Percentage of total users ({total_users:,}) that have used this function at least once.")
+        else:
+            st.info("No data available for Assign Document(s) function.")
+    
+    # Section 1c: Copy Documents to Employee Function
+    st.subheader("Copy Document(s) to Employee")
+    st.markdown("This counts how often documents are copied to employees")
+    
+    if misc_functions_df is not None and misc_functions_df.height > 0:
+        # Get total users from User Agents tab if available
+        total_users = 0
+        if df.height > 0 and "user_id" in df.columns:
+            total_users = df["user_id"].n_unique()
+        
+        # Find the copy documents function
+        copy_docs_df = misc_functions_df.filter(pl.col("function_name") == "Copy document(s) to employee")
+        
+        if copy_docs_df.height > 0:
+            usage_data = copy_docs_df.row(0)
+            total_calls = usage_data[1]
+            unique_users = usage_data[2]
+            
+            # Calculate adoption rate
+            adoption_rate = 0
+            if total_users > 0:
+                adoption_rate = (unique_users / total_users) * 100
+            
+            # Check if document count statistics are available
+            has_doc_stats = "total_documents" in copy_docs_df.columns
+            
+            if has_doc_stats:
+                doc_data = copy_docs_df.row(0)
+                total_docs = doc_data[copy_docs_df.columns.index("total_documents")]
+                avg_docs = doc_data[copy_docs_df.columns.index("avg_documents")]
+                min_docs = doc_data[copy_docs_df.columns.index("min_documents")]
+                max_docs = doc_data[copy_docs_df.columns.index("max_documents")]
+                
+                col1, col2, col3, col4, col5, col6 = st.columns(6)
+                col1.metric("Total Usage", f"{total_calls:,}")
+                col2.metric("Unique Users", f"{unique_users:,}")
+                col3.metric("Adoption Rate", f"{adoption_rate:.1f}%")
+                col4.metric("Avg Documents/Action", f"{avg_docs:.1f}")
+                col5.metric("Min Documents", f"{min_docs}")
+                col6.metric("Max Documents", f"{max_docs}")
+            else:
+                col1, col2, col3 = st.columns(3)
+                col1.metric("Total Usage", f"{total_calls:,}")
+                col2.metric("Unique Users", f"{unique_users:,}")
+                col3.metric("Adoption Rate", f"{adoption_rate:.1f}%")
+            
+            st.caption(f"Adoption Rate: Percentage of total users ({total_users:,}) that have used this function at least once.")
+        else:
+            st.info("No data available for Copy Document(s) function.")
+    
+    # Section 2: Document Viewing Statistics
+    st.subheader("Document Viewing Statistics by Mimetype")
+    st.markdown("Statistics about document viewing, grouped by mimetype.")
+    
+    if document_views_df is not None and document_views_df.height > 0:
+        # Create metrics at the top
+        total_views = document_views_df["total_views"].sum()
+        total_view_users = document_views_df["unique_users"].sum()
+        
+        # Get total users from User Agents tab if available
+        total_users = 0
+        if df.height > 0 and "user_id" in df.columns:
+            total_users = df["user_id"].n_unique()
+        
+        # Calculate average views per mimetype and adoption rate
+        avg_views = 0
+        if document_views_df.height > 0:
+            avg_views = total_views / document_views_df.height
+        
+        adoption_rate = 0
+        if total_users > 0:
+            # Use max unique users for adoption rate calculation
+            max_unique_users = document_views_df["unique_users"].max()
+            adoption_rate = (max_unique_users / total_users) * 100
+        
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Total Document Views", f"{total_views:,}")
+        col2.metric("Avg Views per Mimetype", f"{avg_views:.1f}")
+        col3.metric("Document Viewing Adoption", f"{adoption_rate:.1f}%")
+        
+        # Create bar chart for document views
+        st.subheader("Document Views by Mimetype")
+        
+        view_chart = (
+            alt.Chart(document_views_df.to_pandas())
+            .mark_bar()
+            .encode(
+                x=alt.X("mimetype:N", title="Mimetype", sort='-y'),
+                y=alt.Y("total_views:Q", title="Total Views"),
+                color=alt.Color("mimetype:N", legend=None),
+                tooltip=["mimetype", "total_views", "unique_users"]
+            )
+            .properties(height=300)
+        )
+        st.altair_chart(view_chart, use_container_width=True)
+        
+        # Show detailed data table
+        st.subheader("Detailed Document View Stats")
+        
+        # Create a more readable dataframe
+        display_df = document_views_df.select([
+            pl.col("mimetype").alias("Mimetype"),
+            pl.col("total_views").alias("Total Views"),
+            pl.col("unique_users").alias("Unique Users")
+        ])
+        
+        # Calculate adoption rate per mimetype
+        if total_users > 0:
+            display_df = display_df.with_columns([
+                (pl.col("Unique Users") / total_users * 100).round(1).alias("Adoption Rate (%)")
+            ])
+        
+        st.dataframe(display_df, width="stretch")
+        
+        st.caption("Note: Adoption Rate shows the percentage of total users that have viewed documents of each mimetype.")
+    else:
+        st.info("No document view data available. This could mean that either the analyzer hasn't been run yet or there are no relevant log entries.")
+    
+    # Section 3: Document Download Statistics
+    st.subheader("Document Download Statistics")
+    st.markdown("Statistics about document downloads, including counts and file sizes.")
+    
+    if document_downloads_df is not None and document_downloads_df.height > 0:
+        # Convert metrics to dictionary for easier access
+        metrics_dict = dict(zip(document_downloads_df["metric"].to_list(), document_downloads_df["value"].to_list()))
+        
+        # Extract key metrics
+        total_downloads = int(metrics_dict.get("total_downloads", 0))
+        unique_download_users = int(metrics_dict.get("unique_users", 0))
+        avg_size_bytes = float(metrics_dict.get("avg_size_bytes", 0))
+        min_size_bytes = int(metrics_dict.get("min_size_bytes", 0))
+        max_size_bytes = int(metrics_dict.get("max_size_bytes", 0))
+        
+        # Get total users from User Agents tab if available
+        total_users = 0
+        if df.height > 0 and "user_id" in df.columns:
+            total_users = df["user_id"].n_unique()
+        
+        # Calculate adoption rate
+        adoption_rate = 0
+        if total_users > 0:
+            adoption_rate = (unique_download_users / total_users) * 100
+        
+        # Display key metrics
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Total Downloads", f"{total_downloads:,}")
+        col2.metric("Unique Users", f"{unique_download_users:,}")
+        col3.metric("Download Adoption Rate", f"{adoption_rate:.1f}%")
+        
+        # Display size metrics
+        st.subheader("Document Size Statistics")
+        
+        # Convert sizes to more readable format
+        def format_bytes(bytes, decimals=1):
+            for unit in ['B', 'KB', 'MB', 'GB']:
+                if bytes < 1024 or unit == 'GB':
+                    return f"{bytes:.{decimals}f} {unit}"
+                bytes /= 1024
+        
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Average Size", format_bytes(avg_size_bytes))
+        col2.metric("Minimum Size", format_bytes(min_size_bytes))
+        col3.metric("Maximum Size", format_bytes(max_size_bytes))
+        
+        # Size distribution chart
+        st.subheader("Download Size Distribution")
+        
+        # Prepare data for chart
+        size_categories = []
+        size_counts = []
+        
+        for metric, value in metrics_dict.items():
+            if metric.startswith("size_category_"):
+                # Convert metric name back to readable format
+                category = metric.replace("size_category_", "")
+                category = category.replace("lt", "<").replace("gt", ">").replace("_", " ")
+                size_categories.append(category)
+                size_counts.append(int(value))
+        
+        # Sort categories in logical order
+        category_order = ["< 10KB", "10KB - 100KB", "100KB - 1MB", "1MB - 10MB", "> 10MB"]
+        
+        # Create DataFrame for chart
+        size_df = pl.DataFrame({
+            "Category": size_categories,
+            "Count": size_counts
+        })
+        
+        # Create the chart
+        if size_df.height > 0:
+            # Sort categories in logical order
+            sorted_df = size_df.to_pandas()
+            sorted_df["Category"] = pd.Categorical(sorted_df["Category"], categories=category_order, ordered=True)
+            sorted_df = sorted_df.sort_values("Category")
+            
+            size_chart = (
+                alt.Chart(sorted_df)
+                .mark_bar()
+                .encode(
+                    x=alt.X("Category:N", title="Size Range", sort=category_order),
+                    y=alt.Y("Count:Q", title="Number of Downloads"),
+                    color=alt.Color("Category:N", legend=None),
+                    tooltip=["Category", "Count"]
+                )
+                .properties(height=300)
+            )
+            st.altair_chart(size_chart, use_container_width=True)
+            
+            # Show percentage distribution
+            st.subheader("Size Distribution Percentage")
+            total = sum(size_counts)
+            percentage_df = size_df.with_columns([
+                (pl.col("Count") / total * 100).round(1).alias("Percentage (%)")
+            ])
+            
+            # Display table with percentages
+            display_df = percentage_df.select([
+                pl.col("Category"),
+                pl.col("Count"),
+                pl.col("Percentage (%)")
+            ])
+            st.dataframe(display_df, width="stretch")
+            
+            st.caption(f"Note: Based on {total_downloads:,} total downloads by {unique_download_users:,} unique users.")
+        else:
+            st.info("No size distribution data available.")
+    else:
+        st.info("No document download data available. This could mean that either the analyzer hasn't been run yet or there are no relevant log entries.")
+    
+    # Original Miscellaneous Functions section (if there are more functions besides Employee Dossier)
+    if misc_functions_df is not None and misc_functions_df.height > 1:  # More than just Employee Dossier
+        st.subheader("Other Function Usage Distribution")
+        
+        function_chart = (
+            alt.Chart(misc_functions_df.to_pandas())
+            .mark_bar()
+            .encode(
+                x=alt.X("function_name:N", title="Function"),
+                y=alt.Y("total_usage:Q", title="Total Calls"),
+                color=alt.Color("function_name:N", legend=None),
+                tooltip=["function_name", "total_usage", "unique_users"]
+            )
+            .properties(height=300)
+        )
+        st.altair_chart(function_chart, use_container_width=True)
+        
+        # Show detailed data table
+        st.subheader("Detailed Function Stats")
+        
+        # Create a more readable dataframe
+        display_df = misc_functions_df.select([
+            pl.col("function_name").alias("Function"),
+            pl.col("total_usage").alias("Total Usage"),
+            pl.col("unique_users").alias("Unique Users")
+        ])
+        st.dataframe(display_df, width="stretch")
+    else:
+        st.info("No miscellaneous functions data available. This could mean that either the analyzer hasn't been run yet or there are no relevant log entries.")
