@@ -7,6 +7,12 @@ from pathlib import Path
 st.set_page_config(page_title="Personnel File Portal — Analytics Dashboard", layout="wide")
 st.title("Personnel File Portal — Analytics Dashboard")
 
+# Brief introduction
+st.markdown("""
+This dashboard visualizes Personnel File Portal usage patterns based on log analysis.
+Use the tabs below to explore different aspects of user behavior and system usage.
+""")
+
 # Load data
 csv_path = Path("out/user_agents.csv")
 hourly_path = Path("out/hourly_active_users.csv")
@@ -163,10 +169,20 @@ if panel_summary_path.exists():
     panel_summary_df = pl.read_csv(panel_summary_path)
 
 # Create tabs for different views
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["User Agents", "Active Users", "Peak Hours Analysis", "Sort Usage", "Folder Selection", "Employee Filter", "Document Filter", "Panel Selection"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
+    "🌐 User Agents", 
+    "👥 Active Users", 
+    "⏰ Peak Hours", 
+    "🔄 Sort Usage", 
+    "📁 Folders", 
+    "👤 Employee Filters", 
+    "📄 Document Filters", 
+    "📊 Panels"
+])
 
 with tab1:
     st.header("Browser & Device Analysis")
+    st.info("This view shows which browsers and devices are used to access the portal. Filter by date or browser name to analyze specific usage patterns.")
     
     # Sidebar filters for user agents
     dates = sorted(df["date"].unique().to_list()) if df.height > 0 else []
@@ -208,6 +224,7 @@ with tab1:
 
 with tab2:
     st.header("User Activity Analysis")
+    st.info("This view tracks when users access the portal, showing daily and hourly patterns to identify usage trends over time.")
     
     if hourly_df is None or daily_df is None:
         st.info("No activity data yet. Run the VS Code task **Run Active Users analysis** first.")
@@ -262,6 +279,7 @@ with tab2:
 
 with tab3:
     st.header("Peak Hours Analysis")
+    st.info("This view highlights when the portal experiences highest usage, helping identify peak hours and optimize system resources.")
     
     if peak_hours_df is None:
         st.info("No peak hours data yet. Run the active users analysis first.")
@@ -297,6 +315,7 @@ with tab3:
 
 with tab4:
     st.header("Sort Functionality Usage Analysis")
+    st.info("This analysis shows how users sort data in the portal, revealing preferences for specific fields and sort directions.")
     
     if sort_field_df is None or sort_direction_df is None or sort_combination_df is None:
         st.info("No sort usage data yet. Run the VS Code task **Run Sort Usage analysis** first.")
@@ -403,6 +422,7 @@ with tab4:
 
 with tab5:
     st.header("Folder Selection Analysis")
+    st.info("This analysis shows which folders are accessed most frequently, helping identify the most important content areas.")
     
     if folder_popularity_df is None or folder_popularity_df.height == 0:
         st.info("No folder selection data available. This could mean that either the analyzer hasn't been run yet or there are no FolderSelected events in the logs.")
@@ -532,6 +552,7 @@ with tab5:
 
 with tab6:
     st.header("Employee Filter Analysis")
+    st.info("This shows how users filter employee data, revealing which search criteria are most commonly used.")
     
     if employee_filter_fields_df is None or employee_filter_fields_df.height == 0:
         st.info("No employee filter data available. This could mean that either the analyzer hasn't been run yet or there are no Employee filter events in the logs.")
@@ -657,6 +678,7 @@ with tab6:
 
 with tab7:
     st.header("Document Filter Analysis")
+    st.info("This analysis displays how users search for documents, showing the most common filter criteria and patterns.")
     
     if document_filter_fields_df is None or document_filter_fields_df.height == 0:
         st.info("No document filter data available. This could mean that either the analyzer hasn't been run yet or there are no Document filter events in the logs.")
@@ -783,6 +805,7 @@ with tab7:
 # Panel Selection Tab
 with tab8:
     st.header("Panel Selection Analysis")
+    st.info("This view reveals which information panels users select most frequently, helping identify the most valuable data views.")
     
     if panel_summary_df is None:
         st.info("No panel selection data yet. Run the Selected Panels analysis first:")
@@ -901,6 +924,7 @@ with tab8:
     
     # Panel Switching Behavior
     st.subheader("🔄 Employee Panel Switching Behavior")
+    st.info("This section counts users who switch between employee panels during their sessions. It helps identify how many users explore multiple employee records rather than viewing single records in isolation.")
     
     non_switching_users = total_users - switching_users
     switching_pct_num = float(summary_data.get('switching_percentage', '0%').rstrip('%'))
