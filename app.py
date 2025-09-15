@@ -173,6 +173,8 @@ if panel_summary_path.exists():
 misc_functions_path = Path("out/misc_functions.csv")
 document_views_path = Path("out/document_views.csv")
 document_downloads_path = Path("out/document_downloads.csv")
+excel_exports_path = Path("out/excel_exports.csv")
+resultgrid_toggles_path = Path("out/resultgrid_toggles.csv")
 
 # Create temporary CSV data for the example
 if not misc_functions_path.exists():
@@ -219,6 +221,16 @@ if document_views_path.exists():
 document_downloads_df = None
 if document_downloads_path.exists():
     document_downloads_df = pl.read_csv(document_downloads_path)
+
+# Load Excel exports data if available
+excel_exports_df = None
+if excel_exports_path.exists():
+    excel_exports_df = pl.read_csv(excel_exports_path)
+
+# Load resultgrid toggles data if available
+resultgrid_toggles_df = None
+if resultgrid_toggles_path.exists():
+    resultgrid_toggles_df = pl.read_csv(resultgrid_toggles_path)
 
 # Create tabs for different views
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
@@ -1351,6 +1363,211 @@ with tab9:
             st.info("No size distribution data available.")
     else:
         st.info("No document download data available. This could mean that either the analyzer hasn't been run yet or there are no relevant log entries.")
+    
+    # Section 4: Excel Export Statistics
+    st.subheader("Excel Export Statistics")
+    st.markdown("Statistics about Excel exports, broken down by result type.")
+    
+    if excel_exports_df is not None and excel_exports_df.height > 0:
+        # Get overall metrics
+        overall_row = excel_exports_df.filter(pl.col("result_type") == "overall")
+        
+        if overall_row.height > 0:
+            total_exports = overall_row.select("total_exports").row(0)[0]
+            unique_export_users = overall_row.select("unique_users").row(0)[0]
+            
+            # Get total users from User Agents tab if available
+            total_users = 0
+            if df.height > 0 and "user_id" in df.columns:
+                total_users = df["user_id"].n_unique()
+            
+            # Calculate adoption rate
+            adoption_rate = 0
+            if total_users > 0:
+                adoption_rate = (unique_export_users / total_users) * 100
+            
+            # Display key metrics
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Total Excel Exports", f"{total_exports:,}")
+            col2.metric("Unique Users", f"{unique_export_users:,}")
+            col3.metric("Export Adoption Rate", f"{adoption_rate:.1f}%")
+            
+            # Filter out the overall row for detailed analysis
+            result_types_df = excel_exports_df.filter(pl.col("result_type") != "overall")
+            
+            if result_types_df.height > 0:
+                # Display breakdown by result type
+                st.subheader("Excel Exports by Result Type")
+                
+                # Create chart
+                export_chart = (
+                    alt.Chart(result_types_df.to_pandas())
+                    .mark_bar()
+                    .encode(
+                        x=alt.X("result_type_description:N", title="Result Type", sort='-y'),
+                        y=alt.Y("total_exports:Q", title="Total Exports"),
+                        color=alt.Color("result_type_description:N", legend=None),
+                        tooltip=["result_type_description", "total_exports", "unique_users"]
+                    )
+                    .properties(height=300)
+                )
+                st.altair_chart(export_chart, use_container_width=True)
+                
+                # Function to format file sizes
+                def format_bytes(bytes, decimals=1):
+                    for unit in ['B', 'KB', 'MB', 'GB']:
+                        if bytes < 1024 or unit == 'GB':
+                            return f"{bytes:.{decimals}f} {unit}"
+                        bytes /= 1024
+                
+                # Show detailed data table
+                st.subheader("Detailed Excel Export Stats")
+                
+                # Create a more readable dataframe
+                display_df = result_types_df.select([
+                    pl.col("result_type").alias("Code"),
+                    pl.col("result_type_description").alias("Result Type"),
+                    pl.col("total_exports").alias("Total Exports"),
+                    pl.col("unique_users").alias("Unique Users")
+                ])
+                
+                # Add average file size if available
+                if "avg_file_size_bytes" in result_types_df.columns:
+                    # Convert result_types_df to pandas to handle the formatting
+                    result_types_pandas = result_types_df.to_pandas()
+                    
+                    # Create a new column with formatted file sizes
+                    formatted_sizes = []
+                    for _, row in result_types_pandas.iterrows():
+                        size_bytes = row["avg_file_size_bytes"]
+                        if size_bytes > 0:
+                            formatted_sizes.append(format_bytes(size_bytes))
+                        else:
+                            formatted_sizes.append("N/A")
+                    
+                    # Add the formatted sizes to the display dataframe
+                    display_df = display_df.with_columns([
+                        pl.Series("Avg File Size", formatted_sizes)
+                    ])
+                
+                # Calculate percentage of total
+                display_df = display_df.with_columns([
+                    (pl.col("Total Exports") / total_exports * 100).round(1).alias("% of Total")
+                ])
+                
+                # Calculate adoption rate per result type
+                if total_users > 0:
+                    display_df = display_df.with_columns([
+                        (pl.col("Unique Users") / total_users * 100).round(1).alias("Adoption Rate (%)")
+                    ])
+                
+                st.dataframe(display_df, width="stretch")
+                
+                st.caption(f"Result type breakdown shows different export contexts. Adoption rate is calculated based on total users ({total_users:,}).")
+                
+                # Description of result types
+                st.markdown("""
+                **Result Types Explained:**
+                - **ResultSet (rs)**: Standard search results
+                - **EntitySearchResultSet (es)**: Entity-based search results
+                - **VersionDetails (vd)**: Document version details
+                - **DocumentHistory (dh)**: History of document changes
+                - **DropboxResultSet (db)**: Dropbox-related results
+                - **IndexDocuments (id)**: Index document results
+                """)
+            else:
+                st.info("No detailed result type data available.")
+        else:
+            st.info("No overall Excel export data available.")
+    else:
+        st.info("No Excel export data available. This could mean that either the analyzer hasn't been run yet or there are no relevant log entries.")
+    
+    # Section 5: Resultgrid Toggle Usage
+    st.subheader("Resultgrid Toggle Usage")
+    st.markdown("Statistics about resultgrid element toggle events, showing which elements are toggled most frequently.")
+    
+    if resultgrid_toggles_df is not None and resultgrid_toggles_df.height > 0:
+        # Get overall metrics
+        overall_row = resultgrid_toggles_df.filter(pl.col("element") == "overall")
+        
+        if overall_row.height > 0:
+            total_toggles = overall_row.select("total_toggles").row(0)[0]
+            unique_toggle_users = overall_row.select("unique_users").row(0)[0]
+            
+            # Get total users from User Agents tab if available
+            total_users = 0
+            if df.height > 0 and "user_id" in df.columns:
+                total_users = df["user_id"].n_unique()
+            
+            # Calculate adoption rate
+            adoption_rate = 0
+            if total_users > 0:
+                adoption_rate = (unique_toggle_users / total_users) * 100
+            
+            # Display key metrics
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Total Toggle Events", f"{total_toggles:,}")
+            col2.metric("Unique Users", f"{unique_toggle_users:,}")
+            col3.metric("Toggle Adoption Rate", f"{adoption_rate:.1f}%")
+            
+            # Filter out the overall row for detailed analysis
+            elements_df = resultgrid_toggles_df.filter(pl.col("element") != "overall")
+            
+            if elements_df.height > 0:
+                # Display breakdown by element
+                st.subheader("Toggle Events by Element")
+                
+                # Create chart
+                toggle_chart = (
+                    alt.Chart(elements_df.to_pandas())
+                    .mark_bar()
+                    .encode(
+                        x=alt.X("element_description:N", title="Element", sort='-y'),
+                        y=alt.Y("total_toggles:Q", title="Total Toggles"),
+                        color=alt.Color("element_description:N", legend=None),
+                        tooltip=["element_description", "total_toggles", "unique_users"]
+                    )
+                    .properties(height=300)
+                )
+                st.altair_chart(toggle_chart, use_container_width=True)
+                
+                # Show detailed data table
+                st.subheader("Detailed Toggle Stats by Element")
+                
+                # Create a more readable dataframe
+                display_df = elements_df.select([
+                    pl.col("element").alias("Element"),
+                    pl.col("total_toggles").alias("Total Toggles"),
+                    pl.col("unique_users").alias("Unique Users")
+                ])
+                
+                # Calculate percentage of total
+                display_df = display_df.with_columns([
+                    (pl.col("Total Toggles") / total_toggles * 100).round(1).alias("% of Total")
+                ])
+                
+                # Calculate adoption rate per element
+                if total_users > 0:
+                    display_df = display_df.with_columns([
+                        (pl.col("Unique Users") / total_users * 100).round(1).alias("Adoption Rate (%)")
+                    ])
+                
+                st.dataframe(display_df, width="stretch")
+                
+                st.caption(f"Element breakdown shows which fields are toggled most frequently. Adoption rate is calculated based on total users ({total_users:,}).")
+                
+                # Additional insights
+                st.markdown("""
+                **Toggle Events Explained:**
+                Toggle events occur when users expand or collapse elements in the result grid to show or hide additional information.
+                High toggle rates for specific elements indicate which data fields are most important to users.
+                """)
+            else:
+                st.info("No detailed element data available.")
+        else:
+            st.info("No overall toggle data available.")
+    else:
+        st.info("No resultgrid toggle data available. This could mean that either the analyzer hasn't been run yet or there are no relevant log entries.")
     
     # Original Miscellaneous Functions section (if there are more functions besides Employee Dossier)
     if misc_functions_df is not None and misc_functions_df.height > 1:  # More than just Employee Dossier

@@ -251,6 +251,21 @@ All text in the Streamlit dashboard must be in English, including:
 - **Mimetype Distribution**: Which document types are viewed most frequently
 - **Document Download Statistics**: Analysis of document downloads and file sizes
 - **Download Size Distribution**: Breakdown of downloads by file size ranges
+- **Excel Export Statistics**:
+  - Total exports, unique users, and adoption rate
+  - Breakdown by result type (ResultSet, EntitySearchResultSet, etc.)
+  - Average file sizes per result type
+- **Resultgrid Toggle Usage**:
+  - Total toggle events, unique users, and adoption rate
+  - Breakdown by element (without namespace)
+  - Shows which data fields users interact with most
+- **Mimetype Distribution**: Which document types are viewed most frequently
+- **Document Download Statistics**: Analysis of document downloads and file sizes
+- **Download Size Distribution**: Breakdown of downloads by file size ranges
+- **Excel Export Statistics**:
+  - Total exports, unique users, and adoption rate
+  - Breakdown by result type (ResultSet, EntitySearchResultSet, etc.)
+  - Average file sizes per result type
 
 ## Regex Patterns
 ```python
@@ -265,6 +280,12 @@ RE_UA = r'\[UserAgent:\s*(?P<ua>.+?)\]'
 
 # Timestamp and User extraction (for activity analysis)
 TIMESTAMP_USER_PATTERN = r'^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+).*\[User:\s*(?P<user>[A-Z0-9]+)\]'
+
+# Excel export pattern (for Miscellaneous Functions Analysis)
+EXCEL_EXPORT_PATTERN = r'Excel export: ResultType=\'([^\']+)\', ResultsView=\'([^\']+)\', FileName=\'([^\']+)\', FileSize=([^\ ]+) '
+
+# Resultgrid toggle pattern (for Miscellaneous Functions Analysis)
+TOGGLE_PATTERN = r'Element toggled: element:\'\{[^}]+\}([^\']+)\''
 ```
 
 ## Dependencies
@@ -332,6 +353,8 @@ TIMESTAMP_USER_PATTERN = r'^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\
 - `out/misc_functions.csv`: Miscellaneous functions usage statistics
 - `out/document_views.csv`: Document viewing statistics by mimetype
 - `out/document_downloads.csv`: Document download statistics and file sizes
+- `out/excel_exports.csv`: Excel export statistics by result type
+- `out/resultgrid_toggles.csv`: Resultgrid toggle statistics by element
 
 ### Log Splitting
 - `logs/splits/YYYY-MM-DD/{USER}.log`: Split log files per user per day
