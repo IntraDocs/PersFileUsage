@@ -175,6 +175,12 @@ document_views_path = Path("out/document_views.csv")
 document_downloads_path = Path("out/document_downloads.csv")
 excel_exports_path = Path("out/excel_exports.csv")
 resultgrid_toggles_path = Path("out/resultgrid_toggles.csv")
+view_page_switches_path = Path("out/view_page_switches.csv")
+
+# Document Properties data paths
+document_properties_summary_path = Path("out/document_properties_summary.csv")
+document_properties_distribution_path = Path("out/document_properties_distribution.csv")
+document_properties_user_distribution_path = Path("out/document_properties_user_distribution.csv")
 
 # Create temporary CSV data for the example
 if not misc_functions_path.exists():
@@ -232,8 +238,13 @@ resultgrid_toggles_df = None
 if resultgrid_toggles_path.exists():
     resultgrid_toggles_df = pl.read_csv(resultgrid_toggles_path)
 
+# Load view page switches data if available
+view_page_switches_df = None
+if view_page_switches_path.exists():
+    view_page_switches_df = pl.read_csv(view_page_switches_path)
+
 # Create tabs for different views
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
     "🌐 User Agents", 
     "👥 Active Users", 
     "⏰ Peak Hours", 
@@ -242,7 +253,8 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
     "👤 Employee Filters", 
     "📄 Document Filters", 
     "📊 Panels",
-    "🔍 Miscellaneous Functions"
+    "🔍 Miscellaneous Functions",
+    "📝 Document Properties"
 ])
 
 with tab1:
@@ -1595,6 +1607,211 @@ with tab9:
             pl.col("total_usage").alias("Total Usage"),
             pl.col("unique_users").alias("Unique Users")
         ])
-        st.dataframe(display_df, width="stretch")
+        
+        st.dataframe(display_df.to_pandas(), use_container_width=True)
+    
+    # View Page Switches section
+    st.subheader("View Page: Switched to other document")
+    
+    if view_page_switches_df is not None and view_page_switches_df.height > 0:
+        # Get total switches and unique users
+        total_switches = view_page_switches_df.select(pl.col("total_switches")).to_series()[0]
+        unique_users = view_page_switches_df.select(pl.col("unique_users")).to_series()[0]
+        
+        # Calculate adoption rate using total users from user agents
+        if df is not None and df.height > 0:
+            total_users = df.select(pl.col("user_id")).n_unique()
+            adoption_rate = (unique_users / total_users) * 100
+        else:
+            adoption_rate = 0
+        
+        # Display metrics
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Total Switches", f"{total_switches:,}")
+        with col2:
+            st.metric("Unique Users", f"{unique_users:,}")
+        with col3:
+            st.metric("Adoption Rate", f"{adoption_rate:.1f}%")
+        
+        st.info(f"This feature allows users to switch to other documents while viewing. "
+                f"Out of {total_users:,} total users, {unique_users:,} ({adoption_rate:.1f}%) have used this functionality.")
     else:
-        st.info("No miscellaneous functions data available. This could mean that either the analyzer hasn't been run yet or there are no relevant log entries.")
+        st.info("No view page switch data available. This could mean that either the analyzer hasn't been run yet or no users have used this functionality.")
+
+with tab10:
+    st.header("Document Properties Analysis")
+    st.info("This view shows how users interact with document properties, including changes and edit properties from view tab.")
+    
+    # Load document properties data if available
+    document_properties_summary_df = None
+    
+    if document_properties_summary_path.exists():
+        document_properties_summary_df = pl.read_csv(document_properties_summary_path)
+    
+    # Get total number of unique users from user agents data for adoption rate calculation
+    total_system_users = 0
+    if csv_path.exists():
+        user_agents_df = pl.read_csv(csv_path)
+        total_system_users = user_agents_df.select(pl.col("user_id").n_unique()).item()
+    
+    if document_properties_summary_df is not None:
+        st.subheader("📝 Document Properties Overview")
+        
+        # Get summary data for both event types
+        changes_summary = document_properties_summary_df.filter(
+            pl.col("action_type") == "Document Attributes Changed"
+        )
+        dialog_summary = document_properties_summary_df.filter(
+            pl.col("action_type") == "Edit Dialog Opened"
+        )
+        
+        # Display summary statistics
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if len(changes_summary) > 0:
+                st.metric("Total Document Changes", changes_summary.row(0, named=True)["total_actions"])
+            else:
+                st.metric("Total Document Changes", 0)
+        
+        with col2:
+            if len(changes_summary) > 0:
+                st.metric("Users Making Changes", changes_summary.row(0, named=True)["unique_users"])
+            else:
+                st.metric("Users Making Changes", 0)
+        
+        with col3:
+            if len(changes_summary) > 0 and total_system_users > 0:
+                users_making_changes = changes_summary.row(0, named=True)["unique_users"]
+                adoption_rate = round((users_making_changes / total_system_users) * 100, 1)
+                st.metric("Adoption Rate (Changes)", f"{adoption_rate}%")
+            else:
+                st.metric("Adoption Rate (Changes)", "0%")
+        
+        # Edit Properties from View Tab section
+        st.subheader("🔧 Edit Properties from View Tab")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if len(dialog_summary) > 0:
+                st.metric("Total Opens", dialog_summary.row(0, named=True)["total_actions"])
+            else:
+                st.metric("Total Opens", 0)
+        
+        with col2:
+            if len(dialog_summary) > 0:
+                st.metric("Unique Users", dialog_summary.row(0, named=True)["unique_users"])
+            else:
+                st.metric("Unique Users", 0)
+        
+        with col3:
+            if len(dialog_summary) > 0 and total_system_users > 0:
+                dialog_users = dialog_summary.row(0, named=True)["unique_users"]
+                dialog_adoption_rate = round((dialog_users / total_system_users) * 100, 1)
+                st.metric("Adoption Rate", f"{dialog_adoption_rate}%")
+            else:
+                st.metric("Adoption Rate", "0%")
+        
+        # Show comparison
+        if len(changes_summary) > 0 and len(dialog_summary) > 0:
+            st.subheader("📊 Summary Comparison")
+            
+            comparison_data = [
+                {"Function": "Document Changes", "Total Actions": changes_summary.row(0, named=True)["total_actions"], "Unique Users": changes_summary.row(0, named=True)["unique_users"]},
+                {"Function": "Edit Properties from View Tab", "Total Actions": dialog_summary.row(0, named=True)["total_actions"], "Unique Users": dialog_summary.row(0, named=True)["unique_users"]}
+            ]
+            
+            comparison_df = pl.DataFrame(comparison_data)
+            st.dataframe(comparison_df.to_pandas(), use_container_width=True)
+        
+        # User Distribution Analysis
+        if document_properties_user_distribution_path.exists():
+            document_properties_user_distribution_df = pl.read_csv(document_properties_user_distribution_path)
+            
+            # Filter only document changes (not dialog opens)
+            changes_user_df = document_properties_user_distribution_df.filter(
+                pl.col("event_type") == "Document attributes changed"
+            )
+            
+            if len(changes_user_df) > 0:
+                st.subheader("👥 User Activity Distribution")
+                
+                # Categorize users by number of document changes
+                single_doc_users = len(changes_user_df.filter(pl.col("count") == 1))
+                multiple_doc_users = len(changes_user_df.filter(pl.col("count") > 1))
+                
+                # Create distribution categories
+                distribution_categories = []
+                for row in changes_user_df.iter_rows(named=True):
+                    count = row["count"]
+                    if count == 1:
+                        category = "1 document"
+                    elif count <= 5:
+                        category = "2-5 documents"
+                    elif count <= 10:
+                        category = "6-10 documents"
+                    elif count <= 20:
+                        category = "11-20 documents"
+                    else:
+                        category = "20+ documents"
+                    
+                    distribution_categories.append({
+                        "category": category,
+                        "user_count": 1
+                    })
+                
+                # Aggregate by category
+                if distribution_categories:
+                    category_df = pl.DataFrame(distribution_categories)
+                    category_summary = (
+                        category_df
+                        .group_by("category")
+                        .agg(pl.col("user_count").sum())
+                        .sort("user_count", descending=True)
+                    )
+                    
+                    # Display metrics
+                    col1, col2, col3 = st.columns(3)
+                    
+                    with col1:
+                        st.metric("Single Document Users", single_doc_users)
+                    
+                    with col2:
+                        st.metric("Multiple Document Users", multiple_doc_users)
+                    
+                    with col3:
+                        if single_doc_users + multiple_doc_users > 0:
+                            multiple_percentage = round((multiple_doc_users / (single_doc_users + multiple_doc_users)) * 100, 1)
+                            st.metric("% Multiple Document Users", f"{multiple_percentage}%")
+                        else:
+                            st.metric("% Multiple Document Users", "0%")
+                    
+                    # Show detailed distribution
+                    st.write("**Distribution by Number of Documents Changed:**")
+                    
+                    # Create visualization
+                    if len(category_summary) > 0:
+                        chart = (
+                            alt.Chart(category_summary.to_pandas())
+                            .mark_bar()
+                            .encode(
+                                x=alt.X("category:N", title="Documents Changed", sort=["1 document", "2-5 documents", "6-10 documents", "11-20 documents", "20+ documents"]),
+                                y=alt.Y("user_count:Q", title="Number of Users"),
+                                color=alt.Color("user_count:Q", scale=alt.Scale(scheme="viridis")),
+                                tooltip=["category", "user_count"]
+                            )
+                            .properties(height=300)
+                        )
+                        st.altair_chart(chart, use_container_width=True)
+                        
+                        # Show data table
+                        display_category_df = category_summary.select([
+                            pl.col("category").alias("Documents Changed"),
+                            pl.col("user_count").alias("Number of Users")
+                        ])
+                        st.dataframe(display_category_df.to_pandas(), use_container_width=True)
+    
+    else:
+        st.warning("No document properties data available yet. Run the VS Code task **Run Document Properties analysis** first.")

@@ -55,6 +55,12 @@ def analyze_misc_functions(logs_dir, output_dir, verbose=False):
         "by_element": defaultdict(lambda: {"total_toggles": 0, "unique_users": set()})
     }
     
+    # Dictionary to store view page switch data
+    view_switch_data = {
+        "total_switches": 0,
+        "unique_users": set()
+    }
+    
     # Define patterns to look for
     patterns = {
         "Open Employee Dossier from a document": re.compile(r'Open Employee Dossier called'),
@@ -74,6 +80,9 @@ def analyze_misc_functions(logs_dir, output_dir, verbose=False):
     
     # Pattern for resultgrid toggle events
     toggle_pattern = re.compile(r'Element toggled: element:\'\{[^}]+\}([^\']+)\'')
+    
+    # Pattern for view page switches
+    view_switch_pattern = re.compile(r'View Page: Switched to other document\. Position:\d+')
     
     # Process log files - look in splits subdirectories
     log_files = []
@@ -185,6 +194,16 @@ def analyze_misc_functions(logs_dir, output_dir, verbose=False):
                     # Update data for specific element
                     toggle_data["by_element"][element_name]["total_toggles"] += 1
                     toggle_data["by_element"][element_name]["unique_users"].add(user)
+                
+                # Check for view page switches
+                view_switch_match = view_switch_pattern.search(line)
+                if view_switch_match:
+                    # Extract user
+                    user = extract_user_from_log(line)
+                    
+                    # Update view switch data
+                    view_switch_data["total_switches"] += 1
+                    view_switch_data["unique_users"].add(user)
     
     # Convert to dataframe
     records = []
@@ -471,7 +490,45 @@ def analyze_misc_functions(logs_dir, output_dir, verbose=False):
         if verbose:
             print(f"Saved empty resultgrid toggle data template to {toggle_output_file}")
     
-    return df_functions, df_doc_views, df_downloads, df_excel_exports, df_toggles
+    # Process view page switch data
+    view_switch_records = []
+    
+    if view_switch_data["total_switches"] > 0:
+        view_switch_records.append({
+            "function_name": "View Page: Switch to other document",
+            "total_switches": view_switch_data["total_switches"],
+            "unique_users": len(view_switch_data["unique_users"])
+        })
+        
+        # Create dataframe for view switch data
+        df_view_switches = pl.DataFrame(view_switch_records)
+        
+        # Save to CSV
+        view_switch_output_file = output_dir / "view_page_switches.csv"
+        df_view_switches.write_csv(view_switch_output_file)
+        
+        if verbose:
+            print(f"Saved view page switch data to {view_switch_output_file}")
+            print(f"Found {view_switch_data['total_switches']} view page switches by {len(view_switch_data['unique_users'])} users")
+    else:
+        if verbose:
+            print("No view page switch data found in logs")
+        
+        # Create an empty dataframe with the expected schema
+        df_view_switches = pl.DataFrame({
+            "function_name": [],
+            "total_switches": [],
+            "unique_users": []
+        })
+        
+        # Save empty dataframe
+        view_switch_output_file = output_dir / "view_page_switches.csv"
+        df_view_switches.write_csv(view_switch_output_file)
+        
+        if verbose:
+            print(f"Saved empty view page switch data template to {view_switch_output_file}")
+    
+    return df_functions, df_doc_views, df_downloads, df_excel_exports, df_toggles, df_view_switches
 
 if __name__ == "__main__":
     # This block allows the script to be run directly for testing

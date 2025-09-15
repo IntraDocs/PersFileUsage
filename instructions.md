@@ -23,7 +23,8 @@ This project analyzes log files from the Youforce Personnel File Portal. It cons
 7. **Document Filter Analyzer**: Analyzes document filter usage patterns
 8. **Panel Selection Analyzer**: Analyzes panel switching behavior and concurrent usage patterns
 9. **Miscellaneous Functions Analyzer**: Analyzes various miscellaneous functions usage
-10. **Streamlit Dashboard**: Visualizes all analysis results in an interactive interface
+10. **Document Properties Analyzer**: Analyzes document properties changes and edit dialog usage
+11. **Streamlit Dashboard**: Visualizes all analysis results in an interactive interface
 
 ## Complete Workflow
 
@@ -81,7 +82,11 @@ update-all-stats.bat
 - Run: `python src/analyze_misc_functions.py --logs-dir logs --output-dir out --verbose` or VS Code task "Run Miscellaneous Functions analysis"
 - Output: Miscellaneous functions usage statistics in `out/` directory
 
-### Step 10: Dashboard Viewing
+### Step 10: Document Properties Analysis
+- Run: `python src/analyze_document_properties.py --input logs/splits --output out --verbose` or VS Code task "Run Document Properties analysis"
+- Output: Document properties changes and edit dialog usage statistics in `out/` directory
+
+### Step 11: Dashboard Viewing
 - Run: `streamlit run app.py` or VS Code task "Run Streamlit dashboard"
 - Open browser to the displayed URL for interactive dashboard with all analyses
 
@@ -156,6 +161,7 @@ Use Ctrl+Shift+P → "Tasks: Run Task":
 - **"Run Document Filter analysis"**: Run document filter analysis only
 - **"Run Selected Panels analysis"**: Run panel selection analysis only
 - **"Run Miscellaneous Functions analysis"**: Run miscellaneous functions analysis only
+- **"Run Document Properties analysis"**: Run document properties analysis only
 - **"Run Streamlit dashboard"**: Start web dashboard
 - **"Test Streamlit locally"**: Start web dashboard in local mode for testing
 - **"Install requirements"**: Install Python dependencies
@@ -259,13 +265,11 @@ All text in the Streamlit dashboard must be in English, including:
   - Total toggle events, unique users, and adoption rate
   - Breakdown by element (without namespace)
   - Shows which data fields users interact with most
-- **Mimetype Distribution**: Which document types are viewed most frequently
-- **Document Download Statistics**: Analysis of document downloads and file sizes
-- **Download Size Distribution**: Breakdown of downloads by file size ranges
-- **Excel Export Statistics**:
-  - Total exports, unique users, and adoption rate
-  - Breakdown by result type (ResultSet, EntitySearchResultSet, etc.)
-  - Average file sizes per result type
+
+### Tab 10: Document Properties Analysis
+- **Document Changes**: Total document attribute changes, unique users, and adoption rate
+- **Edit Properties from View Tab**: Total opens, unique users, and adoption rate for edit dialog from document view
+- **Summary Comparison**: Side-by-side comparison of both functions
 
 ## Regex Patterns
 ```python
@@ -286,6 +290,12 @@ EXCEL_EXPORT_PATTERN = r'Excel export: ResultType=\'([^\']+)\', ResultsView=\'([
 
 # Resultgrid toggle pattern (for Miscellaneous Functions Analysis)
 TOGGLE_PATTERN = r'Element toggled: element:\'\{[^}]+\}([^\']+)\''
+
+# Document attributes changed pattern (for Document Properties Analysis)
+PROPERTIES_CHANGE_PATTERN = r'Document attributes changed: (\d+) document'
+
+# Edit attributes dialog opened pattern (for Document Properties Analysis)
+EDIT_DIALOG_PATTERN = r'Edit attributes dialog opened from document view'
 ```
 
 ## Dependencies
@@ -355,6 +365,12 @@ TOGGLE_PATTERN = r'Element toggled: element:\'\{[^}]+\}([^\']+)\''
 - `out/document_downloads.csv`: Document download statistics and file sizes
 - `out/excel_exports.csv`: Excel export statistics by result type
 - `out/resultgrid_toggles.csv`: Resultgrid toggle statistics by element
+- `out/view_page_switches.csv`: View page switching statistics (switching to other documents while viewing)
+
+### Document Properties Analysis
+- `out/document_properties_summary.csv`: Summary statistics for document changes and edit dialog usage
+- `out/document_properties_distribution.csv`: Distribution of documents per change event
+- `out/document_properties_user_distribution.csv`: Per-user activity distribution
 
 ### Log Splitting
 - `logs/splits/YYYY-MM-DD/{USER}.log`: Split log files per user per day

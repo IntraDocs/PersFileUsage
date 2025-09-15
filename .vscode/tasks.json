@@ -13,7 +13,8 @@
                 "Run Employee Filter analysis",
                 "Run Document Filter analysis",
                 "Run Selected Panels analysis",
-                "Run Miscellaneous Functions analysis"
+                "Run Miscellaneous Functions analysis",
+                "Run Document Properties analysis"
             ],
             "group": {
                 "kind": "build",
@@ -269,6 +270,29 @@
                 "--logs-dir",
                 "logs",
                 "--output-dir",
+                "out",
+                "--verbose"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Run Document Properties analysis",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+            "args": [
+                "src/analyze_document_properties.py",
+                "--input",
+                "logs/splits",
+                "--output",
                 "out",
                 "--verbose"
             ],
