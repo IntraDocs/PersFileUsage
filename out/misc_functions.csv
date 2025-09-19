@@ -1,4 +1,4 @@
 function_name,total_usage,unique_users,total_documents,avg_documents,min_documents,max_documents
-Assign document(s) to an employee,6,6,6,1.0,1,1
-Open Employee Dossier from a document,1,1,,,,
-Copy document(s) to employee,6,1,6,1.0,1,1
+Assign document(s) to an employee,20,14,33,1.65,1,14
+Open Employee Dossier from a document,5,2,,,,
+Copy document(s) to employee,12,5,29,2.4166666666666665,1,14

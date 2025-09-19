@@ -1,3 +1,6 @@
 filter_type,total_usage,unique_users,different_fields
-single_word,71,20,5
-multiple_words,26,7,1
+single_word,257,141,10
+multiple_words,77,41,5
+>[value],3,1,1
+=[value],1,1,1
+<[value],1,1,1

@@ -1,433 +1,907 @@
 employee_code,event_type,count
-IC108409,Document attributes changed,15
+IC108409,Document attributes changed,17
 IC112226,Document attributes changed,4
-IC114957,Document attributes changed,3
+IC114957,Document attributes changed,16
 IC118451,Document attributes changed,34
-IC132270,Document attributes changed,4
-IC136830,Document attributes changed,9
-IC140080,Document attributes changed,9
-IC140139,Document attributes changed,14
-IC140677,Document attributes changed,23
-IC148491,Document attributes changed,29
+IC132270,Document attributes changed,31
+IC136830,Document attributes changed,15
+IC140080,Document attributes changed,27
+IC140139,Document attributes changed,21
+IC140677,Document attributes changed,42
+IC148491,Document attributes changed,60
 IC149153,Document attributes changed,14
-IC152940,Document attributes changed,6
+IC152940,Document attributes changed,45
 IC191000,Document attributes changed,1
-IC193305,Document attributes changed,18
-IC204728,Document attributes changed,1
-IC208286,Document attributes changed,5
-IC208299,Document attributes changed,3
-IC230839,Document attributes changed,1
-IC231889,Document attributes changed,1
-IC234175,Document attributes changed,1
+IC193305,Document attributes changed,36
+IC204728,Document attributes changed,7
+IC208286,Document attributes changed,8
+IC208299,Document attributes changed,10
+IC230839,Document attributes changed,3
+IC231889,Document attributes changed,3
+IC234175,Document attributes changed,4
 IC238734,Document attributes changed,1
-IC239430,Document attributes changed,40
+IC239430,Document attributes changed,107
 IC247163,Document attributes changed,4
-IC247614,Document attributes changed,1
-IC248683,Document attributes changed,3
-IC250881,Document attributes changed,1
-IC251427,Document attributes changed,22
-IC251428,Document attributes changed,20
-IC251430,Document attributes changed,61
-IC251433,Document attributes changed,7
-IC251435,Document attributes changed,84
-IC251437,Document attributes changed,31
-IC251438,Document attributes changed,26
-IC254729,Document attributes changed,1
-IC255636,Document attributes changed,5
-IC255897,Document attributes changed,2
-IC256865,Document attributes changed,4
+IC247614,Document attributes changed,2
+IC248683,Document attributes changed,15
+IC250881,Document attributes changed,3
+IC251427,Document attributes changed,122
+IC251428,Document attributes changed,21
+IC251430,Document attributes changed,72
+IC251433,Document attributes changed,68
+IC251435,Document attributes changed,304
+IC251437,Document attributes changed,163
+IC251438,Document attributes changed,67
+IC254729,Document attributes changed,10
+IC255636,Document attributes changed,150
+IC255897,Document attributes changed,15
+IC256865,Document attributes changed,8
 IC258786,Document attributes changed,17
-IC261999,Document attributes changed,2
+IC261999,Document attributes changed,7
 IC263320,Document attributes changed,2
 IC266925,Document attributes changed,1
-IC267484,Document attributes changed,1
-IC276267,Document attributes changed,14
+IC267484,Document attributes changed,4
+IC276267,Document attributes changed,15
 IC290336,Document attributes changed,1
-IC296256,Document attributes changed,1
+IC296256,Document attributes changed,2
 RO177899,Document attributes changed,2
-RO214268,Document attributes changed,1
-RO303139,Document attributes changed,4
+RO214268,Document attributes changed,9
+RO303139,Document attributes changed,14
 RO364368,Document attributes changed,1
-RO496362,Document attributes changed,1
-RO513168,Document attributes changed,14
+RO496362,Document attributes changed,85
+RO513168,Document attributes changed,44
 RO536473,Document attributes changed,1
-RO603627,Document attributes changed,5
-RO644257,Document attributes changed,6
-RO654397,Document attributes changed,1
-RO895935,Document attributes changed,4
-RO945231,Document attributes changed,50
-RO974759,Document attributes changed,1
-RP401704,Document attributes changed,13
-RP581823,Document attributes changed,20
-RP822142,Document attributes changed,1
-RQ346307,Document attributes changed,15
-RQ865554,Document attributes changed,4
-RQ868666,Document attributes changed,13
-RS506747,Document attributes changed,32
+RO603627,Document attributes changed,7
+RO644257,Document attributes changed,12
+RO654397,Document attributes changed,2
+RO895935,Document attributes changed,6
+RO945231,Document attributes changed,138
+RO974759,Document attributes changed,5
+RP401704,Document attributes changed,50
+RP581823,Document attributes changed,47
+RP822142,Document attributes changed,2
+RQ346307,Document attributes changed,22
+RQ865554,Document attributes changed,5
+RQ868666,Document attributes changed,19
+RS506747,Document attributes changed,104
 RS991246,Document attributes changed,1
 RT101173,Document attributes changed,1
-RT187424,Document attributes changed,3
-RT193227,Document attributes changed,1
+RT187424,Document attributes changed,8
+RT193227,Document attributes changed,2
 RU122288,Document attributes changed,1
 RU125694,Document attributes changed,3
 RU205654,Document attributes changed,2
 RU523900,Document attributes changed,1
-RU698332,Document attributes changed,1
+RU698332,Document attributes changed,2
 RU699691,Document attributes changed,5
-RU741659,Document attributes changed,49
-RV123308,Document attributes changed,5
-RV344229,Document attributes changed,3
+RU741659,Document attributes changed,162
+RV123308,Document attributes changed,14
+RV344229,Document attributes changed,7
 RV415986,Document attributes changed,19
 RV592005,Document attributes changed,1
-RV594664,Document attributes changed,85
+RV594664,Document attributes changed,655
 RV617203,Document attributes changed,1
-RV644673,Document attributes changed,7
-RV804959,Document attributes changed,1
-RV805794,Document attributes changed,2
-RW123163,Document attributes changed,6
-RW467295,Document attributes changed,36
-RW586901,Document attributes changed,6
-RW921944,Document attributes changed,3
-RW997217,Document attributes changed,1
-RX126807,Document attributes changed,19
-RX127644,Document attributes changed,92
+RV644673,Document attributes changed,13
+RV804959,Document attributes changed,5
+RV805794,Document attributes changed,5
+RW123163,Document attributes changed,9
+RW467295,Document attributes changed,79
+RW586901,Document attributes changed,8
+RW921944,Document attributes changed,6
+RW997217,Document attributes changed,9
+RX126807,Document attributes changed,32
+RX127644,Document attributes changed,98
 RX170884,Document attributes changed,9
 RX179315,Document attributes changed,4
-RX223649,Document attributes changed,8
+RX223649,Document attributes changed,22
 RX236906,Document attributes changed,8
-RX270979,Document attributes changed,1
+RX270979,Document attributes changed,10
 RX302843,Document attributes changed,1
-RX328581,Document attributes changed,3
-RX362699,Document attributes changed,1
-RX369439,Document attributes changed,17
+RX328581,Document attributes changed,10
+RX362699,Document attributes changed,4
+RX369439,Document attributes changed,18
 RX376617,Document attributes changed,1
-RX391257,Document attributes changed,2
-RX422190,Document attributes changed,8
+RX391257,Document attributes changed,4
+RX422190,Document attributes changed,68
 RX456816,Document attributes changed,3
-RX460050,Document attributes changed,3
-RX474189,Document attributes changed,13
-RX610864,Document attributes changed,3
-RX630961,Document attributes changed,12
-RX723156,Document attributes changed,62
-RX764383,Document attributes changed,1
-RX785627,Document attributes changed,1
-RX810406,Document attributes changed,1
-RX826755,Document attributes changed,2
+RX460050,Document attributes changed,128
+RX474189,Document attributes changed,51
+RX610864,Document attributes changed,6
+RX630961,Document attributes changed,20
+RX723156,Document attributes changed,131
+RX764383,Document attributes changed,22
+RX785627,Document attributes changed,4
+RX810406,Document attributes changed,4
+RX826755,Document attributes changed,7
 RY1005539,Document attributes changed,9
 RY1006893,Document attributes changed,1
-RY114679,Document attributes changed,4
+RY114679,Document attributes changed,14
 RY144215,Document attributes changed,1
-RY148065,Document attributes changed,2
-RY247959,Document attributes changed,15
+RY148065,Document attributes changed,9
+RY247959,Document attributes changed,58
 RY301396,Document attributes changed,3
 RY407304,Document attributes changed,2
-RY459854,Document attributes changed,7
-RY496094,Document attributes changed,4
-RY496095,Document attributes changed,1
-RY584648,Document attributes changed,1
+RY459854,Document attributes changed,16
+RY496094,Document attributes changed,15
+RY496095,Document attributes changed,2
+RY584648,Document attributes changed,5
 RY594752,Document attributes changed,2
-RY628824,Document attributes changed,32
+RY628824,Document attributes changed,58
 RY647161,Document attributes changed,3
-RY731791,Document attributes changed,5
-RY732107,Document attributes changed,1
-RY795760,Document attributes changed,8
-RY821888,Document attributes changed,3
-RY855770,Document attributes changed,4
+RY731791,Document attributes changed,17
+RY732107,Document attributes changed,2
+RY795760,Document attributes changed,9
+RY821888,Document attributes changed,18
+RY855770,Document attributes changed,15
 RY858835,Document attributes changed,13
 RY871083,Document attributes changed,1
-RY903861,Document attributes changed,2
-RY932140,Document attributes changed,295
+RY903861,Document attributes changed,4
+RY932140,Document attributes changed,598
 RY942764,Document attributes changed,2
-RY965136,Document attributes changed,5
-RY991185,Document attributes changed,1
+RY965136,Document attributes changed,12
+RY991185,Document attributes changed,2
 RY995467,Document attributes changed,12
-RY995735,Document attributes changed,3
-RZ175616,Document attributes changed,3
+RY995735,Document attributes changed,15
+RZ175616,Document attributes changed,6
 RZ176842,Document attributes changed,8
-RZ179598,Document attributes changed,11
+RZ179598,Document attributes changed,43
 RZ205873,Document attributes changed,1
-RZ242259,Document attributes changed,94
-RZ245213,Document attributes changed,2
-RZ250658,Document attributes changed,2
-RZ265801,Document attributes changed,1
-RZ274487,Document attributes changed,5
+RZ242259,Document attributes changed,169
+RZ245213,Document attributes changed,37
+RZ250658,Document attributes changed,3
+RZ265801,Document attributes changed,19
+RZ274487,Document attributes changed,14
 RZ289327,Document attributes changed,1
 RZ290015,Document attributes changed,1
-RZ290047,Document attributes changed,48
-RZ319892,Document attributes changed,26
-RZ331874,Document attributes changed,7
+RZ290047,Document attributes changed,114
+RZ319892,Document attributes changed,70
+RZ331874,Document attributes changed,19
 UA006573,Document attributes changed,4
-UA006575,Document attributes changed,1
+UA006575,Document attributes changed,4
 UA006910,Document attributes changed,2
-UA011900,Document attributes changed,8
+UA011900,Document attributes changed,18
 IC101136,Document attributes changed,1
-IC120249,Document attributes changed,4
-IC140082,Document attributes changed,4
-IC160123,Document attributes changed,4
-IC175991,Document attributes changed,1
-IC178405,Document attributes changed,1
-IC185388,Document attributes changed,3
-IC192006,Document attributes changed,6
+IC120249,Document attributes changed,6
+IC140082,Document attributes changed,14
+IC160123,Document attributes changed,8
+IC175991,Document attributes changed,3
+IC178405,Document attributes changed,23
+IC185388,Document attributes changed,4
+IC192006,Document attributes changed,73
 IC192633,Document attributes changed,1
-IC201001,Document attributes changed,2
+IC201001,Document attributes changed,3
 IC206777,Document attributes changed,1
 IC210125,Document attributes changed,1
 IC223334,Document attributes changed,1
-IC224261,Document attributes changed,3
-IC233294,Document attributes changed,2
-IC239292,Document attributes changed,2
-IC246870,Document attributes changed,24
+IC224261,Document attributes changed,13
+IC233294,Document attributes changed,31
+IC239292,Document attributes changed,4
+IC246870,Document attributes changed,40
 IC248453,Document attributes changed,1
-IC251434,Document attributes changed,3
-IC258105,Document attributes changed,9
+IC251434,Document attributes changed,96
+IC258105,Document attributes changed,23
 IC269962,Document attributes changed,1
 IC270258,Document attributes changed,2
-IC277740,Document attributes changed,1
+IC277740,Document attributes changed,10
 IC278076,Document attributes changed,2
 IC283426,Document attributes changed,10
 IC284008,Document attributes changed,5
-IC287882,Document attributes changed,1
+IC287882,Document attributes changed,2
 IC290930,Document attributes changed,1
 IC294601,Document attributes changed,1
-RO126442,Document attributes changed,1
-RO138161,Document attributes changed,1
-RO186962,Document attributes changed,3
-RO215259,Document attributes changed,1
+RO126442,Document attributes changed,6
+RO138161,Document attributes changed,9
+RO186962,Document attributes changed,20
+RO215259,Document attributes changed,13
 RO287783,Document attributes changed,1
 RO303147,Document attributes changed,1
 RO370143,Document attributes changed,4
-RO458391,Document attributes changed,1
-RO654379,Document attributes changed,2
+RO458391,Document attributes changed,16
+RO654379,Document attributes changed,12
 RO828508,Document attributes changed,1
 RO858180,Document attributes changed,4
-RP213038,Document attributes changed,1
-RP227683,Document attributes changed,2
+RP213038,Document attributes changed,2
+RP227683,Document attributes changed,4
 RP616364,Document attributes changed,1
-RP667760,Document attributes changed,2
-RQ147863,Document attributes changed,2
-RQ406113,Document attributes changed,1
-RQ579208,Document attributes changed,1
-RT457513,Document attributes changed,4
-RT457584,Document attributes changed,3
+RP667760,Document attributes changed,4
+RQ147863,Document attributes changed,7
+RQ406113,Document attributes changed,8
+RQ579208,Document attributes changed,19
+RT457513,Document attributes changed,6
+RT457584,Document attributes changed,5
 RT936323,Document attributes changed,11
 RU109270,Document attributes changed,4
-RU125327,Document attributes changed,1
-RU340091,Document attributes changed,59
-RU389639,Document attributes changed,9
-RV328679,Document attributes changed,28
-RV508707,Document attributes changed,1
-RV754723,Document attributes changed,4
+RU125327,Document attributes changed,2
+RU340091,Document attributes changed,186
+RU389639,Document attributes changed,76
+RV328679,Document attributes changed,30
+RV508707,Document attributes changed,4
+RV754723,Document attributes changed,32
 RV924363,Document attributes changed,1
 RW585438,Document attributes changed,1
-RW761237,Document attributes changed,12
+RW761237,Document attributes changed,41
 RW783587,Document attributes changed,1
 RW885639,Document attributes changed,1
-RW906257,Document attributes changed,1
-RW912949,Document attributes changed,6
-RW940661,Document attributes changed,51
-RW963326,Document attributes changed,2
+RW906257,Document attributes changed,3
+RW912949,Document attributes changed,68
+RW940661,Document attributes changed,94
+RW963326,Document attributes changed,3
 RW976692,Document attributes changed,2
 RX111370,Document attributes changed,1
 RX345785,Document attributes changed,1
-RX490656,Document attributes changed,1
+RX490656,Document attributes changed,3
 RX516363,Document attributes changed,5
-RX630580,Document attributes changed,1
-RX634298,Document attributes changed,3
-RX789096,Document attributes changed,125
-RX865723,Document attributes changed,2
-RX880268,Document attributes changed,3
-RX927955,Document attributes changed,1
-RX937323,Document attributes changed,6
+RX630580,Document attributes changed,54
+RX634298,Document attributes changed,4
+RX789096,Document attributes changed,138
+RX865723,Document attributes changed,62
+RX880268,Document attributes changed,4
+RX927955,Document attributes changed,5
+RX937323,Document attributes changed,9
 RY233717,Document attributes changed,1
 RY239925,Document attributes changed,1
-RY268368,Document attributes changed,3
+RY268368,Document attributes changed,22
 RY376319,Document attributes changed,1
-RY442779,Document attributes changed,1
+RY442779,Document attributes changed,2
 RY451850,Document attributes changed,1
-RY478866,Document attributes changed,2
-RY541328,Document attributes changed,1
-RY600894,Document attributes changed,1
+RY478866,Document attributes changed,28
+RY541328,Document attributes changed,2
+RY600894,Document attributes changed,10
 RY616709,Document attributes changed,1
-RY633391,Document attributes changed,7
+RY633391,Document attributes changed,8
 RY662922,Document attributes changed,1
 RY671379,Document attributes changed,1
-RY674766,Document attributes changed,6
-RY687189,Document attributes changed,4
-RY704716,Document attributes changed,1
-RY740039,Document attributes changed,2
+RY674766,Document attributes changed,51
+RY687189,Document attributes changed,8
+RY704716,Document attributes changed,3
+RY740039,Document attributes changed,6
 RY826639,Document attributes changed,1
-RY853880,Document attributes changed,5
+RY853880,Document attributes changed,7
 RY862695,Document attributes changed,1
-RY866165,Document attributes changed,5
-RY905786,Document attributes changed,1
-RY908893,Document attributes changed,1
+RY866165,Document attributes changed,44
+RY905786,Document attributes changed,3
+RY908893,Document attributes changed,2
 RY929679,Document attributes changed,1
-RY952360,Document attributes changed,3
+RY952360,Document attributes changed,6
 RY962412,Document attributes changed,87
-RY963394,Document attributes changed,8
+RY963394,Document attributes changed,16
 RY984793,Document attributes changed,6
 RY996620,Document attributes changed,1
-RZ134752,Document attributes changed,3
-RZ142649,Document attributes changed,1
-RZ149789,Document attributes changed,1
+RZ134752,Document attributes changed,4
+RZ142649,Document attributes changed,51
+RZ149789,Document attributes changed,4
 RZ178881,Document attributes changed,1
 RZ179504,Document attributes changed,1
-RZ180496,Document attributes changed,23
-RZ206569,Document attributes changed,1
-RZ211997,Document attributes changed,4
+RZ180496,Document attributes changed,26
+RZ206569,Document attributes changed,3
+RZ211997,Document attributes changed,10
 RZ215990,Document attributes changed,1
 RZ222445,Document attributes changed,1
 RZ251193,Document attributes changed,1
 RZ272335,Document attributes changed,2
-RZ314089,Document attributes changed,1
-RZ317578,Document attributes changed,34
+RZ314089,Document attributes changed,6
+RZ317578,Document attributes changed,109
 RZ346888,Document attributes changed,8
-UA000602,Document attributes changed,1
+UA000602,Document attributes changed,52
 UA005074,Document attributes changed,1
-UA005728,Document attributes changed,2
-UA007277,Document attributes changed,9
-UA007299,Document attributes changed,2
+UA005728,Document attributes changed,3
+UA007277,Document attributes changed,13
+UA007299,Document attributes changed,5
 UA008466,Document attributes changed,1
-IC108409,Edit attributes dialog opened,15
+IC104176,Document attributes changed,5
+IC132360,Document attributes changed,1
+IC136230,Document attributes changed,31
+IC137826,Document attributes changed,2
+IC145776,Document attributes changed,8
+IC202504,Document attributes changed,59
+IC204117,Document attributes changed,6
+IC214007,Document attributes changed,3
+IC219359,Document attributes changed,37
+IC219740,Document attributes changed,33
+IC221461,Document attributes changed,2
+IC242095,Document attributes changed,7
+IC244481,Document attributes changed,1
+IC279781,Document attributes changed,1
+IC281076,Document attributes changed,18
+IC289539,Document attributes changed,21
+RO174743,Document attributes changed,1
+RO219479,Document attributes changed,1
+RO443792,Document attributes changed,1
+RO443969,Document attributes changed,10
+RO488588,Document attributes changed,49
+RO522721,Document attributes changed,5
+RO535754,Document attributes changed,2
+RP141235,Document attributes changed,16
+RP213523,Document attributes changed,1
+RQ384302,Document attributes changed,13
+RQ816518,Document attributes changed,2
+RQ883092,Document attributes changed,3
+RS432887,Document attributes changed,1
+RS489157,Document attributes changed,1
+RT187332,Document attributes changed,10
+RT443990,Document attributes changed,1
+RU131945,Document attributes changed,1
+RU478482,Document attributes changed,3
+RV622478,Document attributes changed,3
+RV794002,Document attributes changed,1
+RV922445,Document attributes changed,1
+RW637240,Document attributes changed,1
+RW847315,Document attributes changed,1
+RW919786,Document attributes changed,3
+RW957183,Document attributes changed,12
+RW982470,Document attributes changed,11
+RW998650,Document attributes changed,3
+RX322855,Document attributes changed,8
+RX396830,Document attributes changed,2
+RX634430,Document attributes changed,2
+RX701193,Document attributes changed,3
+RX818542,Document attributes changed,12
+RY186137,Document attributes changed,1
+RY236929,Document attributes changed,2
+RY273199,Document attributes changed,2
+RY458694,Document attributes changed,1
+RY530625,Document attributes changed,1
+RY588080,Document attributes changed,1
+RY589787,Document attributes changed,9
+RY621822,Document attributes changed,2
+RY940262,Document attributes changed,48
+RY991180,Document attributes changed,1
+RZ109298,Document attributes changed,1
+RZ169911,Document attributes changed,1
+RZ242021,Document attributes changed,9
+RZ242263,Document attributes changed,19
+RZ300041,Document attributes changed,1
+UA004507,Document attributes changed,2
+UA007008,Document attributes changed,9
+UA007093,Document attributes changed,1
+RS495174,Document attributes changed,1
+RO523801,Document attributes changed,80
+RU688713,Document attributes changed,20
+IC110310,Document attributes changed,2
+IC113268,Document attributes changed,17
+IC151721,Document attributes changed,1
+IC175786,Document attributes changed,2
+IC177117,Document attributes changed,1
+IC181164,Document attributes changed,4
+IC209152,Document attributes changed,25
+IC209159,Document attributes changed,12
+IC210755,Document attributes changed,7
+IC212980,Document attributes changed,1
+IC231270,Document attributes changed,2
+IC250086,Document attributes changed,7
+IC258788,Document attributes changed,5
+IC267837,Document attributes changed,2
+IC269017,Document attributes changed,7
+IC271666,Document attributes changed,2
+IC280982,Document attributes changed,8
+IC282225,Document attributes changed,19
+IC283107,Document attributes changed,6
+IC284341,Document attributes changed,1
+IC290362,Document attributes changed,1
+RO389357,Document attributes changed,1
+RO393709,Document attributes changed,1
+RO398329,Document attributes changed,8
+RO458385,Document attributes changed,8
+RO518747,Document attributes changed,1
+RO523829,Document attributes changed,11
+RO712656,Document attributes changed,1
+RO728943,Document attributes changed,2
+RP119962,Document attributes changed,3
+RP482964,Document attributes changed,3
+RP530657,Document attributes changed,12
+RQ130919,Document attributes changed,1
+RQ441204,Document attributes changed,16
+RQ578194,Document attributes changed,47
+RS634748,Document attributes changed,3
+RT378535,Document attributes changed,1
+RU107565,Document attributes changed,7
+RU698333,Document attributes changed,2
+RV105428,Document attributes changed,1
+RV436658,Document attributes changed,15
+RV450503,Document attributes changed,5
+RV669791,Document attributes changed,25
+RV741799,Document attributes changed,1
+RV807443,Document attributes changed,35
+RW461306,Document attributes changed,1
+RW744108,Document attributes changed,2
+RW765467,Document attributes changed,6
+RW899619,Document attributes changed,5
+RW906894,Document attributes changed,7
+RX105301,Document attributes changed,1
+RX230552,Document attributes changed,1
+RX243365,Document attributes changed,2
+RX474916,Document attributes changed,8
+RX555811,Document attributes changed,1
+RX602355,Document attributes changed,27
+RX702166,Document attributes changed,1
+RX776985,Document attributes changed,1
+RX816634,Document attributes changed,2
+RX828120,Document attributes changed,1
+RX868382,Document attributes changed,13
+RY107652,Document attributes changed,1
+RY134914,Document attributes changed,1
+RY137793,Document attributes changed,3
+RY290347,Document attributes changed,5
+RY450017,Document attributes changed,1
+RY478409,Document attributes changed,3
+RY530638,Document attributes changed,2
+RY630787,Document attributes changed,5
+RY649865,Document attributes changed,9
+RY691603,Document attributes changed,30
+RY710448,Document attributes changed,2
+RY858751,Document attributes changed,5
+RY861676,Document attributes changed,15
+RY867826,Document attributes changed,3
+RY892276,Document attributes changed,1
+RY944404,Document attributes changed,4
+RY953347,Document attributes changed,1
+RY962265,Document attributes changed,6
+RZ174427,Document attributes changed,6
+RZ180805,Document attributes changed,1
+RZ271465,Document attributes changed,4
+RZ278014,Document attributes changed,1
+RZ282447,Document attributes changed,3
+RZ325210,Document attributes changed,1
+RZ325444,Document attributes changed,5
+RZ331860,Document attributes changed,2
+IC103350,Document attributes changed,2
+IC104839,Document attributes changed,26
+IC196498,Document attributes changed,1
+IC197328,Document attributes changed,40
+IC200701,Document attributes changed,53
+IC204068,Document attributes changed,1
+IC224258,Document attributes changed,2
+IC239829,Document attributes changed,2
+IC251197,Document attributes changed,3
+IC259197,Document attributes changed,5
+IC273890,Document attributes changed,4
+IC287009,Document attributes changed,2
+IC293892,Document attributes changed,258
+RO216741,Document attributes changed,1
+RO319537,Document attributes changed,2
+RO518429,Document attributes changed,1
+RO737438,Document attributes changed,1
+RO779984,Document attributes changed,4
+RP131575,Document attributes changed,2
+RP432683,Document attributes changed,2
+RP482603,Document attributes changed,27
+RP830570,Document attributes changed,2
+RQ118463,Document attributes changed,1
+RS514060,Document attributes changed,2
+RT936314,Document attributes changed,9
+RU125405,Document attributes changed,1
+RU126719,Document attributes changed,4
+RU416247,Document attributes changed,1
+RU698337,Document attributes changed,1
+RV884186,Document attributes changed,1
+RV918372,Document attributes changed,6
+RW770165,Document attributes changed,5
+RW792830,Document attributes changed,1
+RX245982,Document attributes changed,1
+RX333656,Document attributes changed,3
+RX334158,Document attributes changed,2
+RX391406,Document attributes changed,16
+RX430049,Document attributes changed,5
+RX490599,Document attributes changed,1
+RX583969,Document attributes changed,2
+RX610723,Document attributes changed,1
+RX630721,Document attributes changed,3
+RX831054,Document attributes changed,2
+RX917113,Document attributes changed,1
+RY1005611,Document attributes changed,9
+RY1005636,Document attributes changed,2
+RY1010489,Document attributes changed,1
+RY457745,Document attributes changed,1
+RY496350,Document attributes changed,1
+RY504768,Document attributes changed,1
+RY526905,Document attributes changed,2
+RY633137,Document attributes changed,2
+RY654788,Document attributes changed,2
+RY691830,Document attributes changed,4
+RY709733,Document attributes changed,1
+RY789128,Document attributes changed,10
+RY944230,Document attributes changed,42
+RY952361,Document attributes changed,7
+RY962697,Document attributes changed,5
+RY984786,Document attributes changed,2
+RZ147649,Document attributes changed,1
+RZ250809,Document attributes changed,1
+RZ315423,Document attributes changed,9
+RZ321613,Document attributes changed,4
+UA000711,Document attributes changed,2
+UA011912,Document attributes changed,13
+IC122327,Document attributes changed,2
+IC150729,Document attributes changed,5
+IC183157,Document attributes changed,1
+IC187288,Document attributes changed,2
+IC204385,Document attributes changed,3
+IC217184,Document attributes changed,2
+IC240466,Document attributes changed,2
+IC244349,Document attributes changed,1
+IC246577,Document attributes changed,2
+IC257178,Document attributes changed,1
+IC260217,Document attributes changed,2
+IC295570,Document attributes changed,1
+RO219477,Document attributes changed,2
+RO287903,Document attributes changed,1
+RO707913,Document attributes changed,8
+RP556456,Document attributes changed,6
+RQ118416,Document attributes changed,4
+RQ404484,Document attributes changed,2
+RQ583206,Document attributes changed,1
+RS866156,Document attributes changed,2
+RT936312,Document attributes changed,14
+RU262723,Document attributes changed,60
+RV617538,Document attributes changed,19
+RW1006770,Document attributes changed,1
+RW606020,Document attributes changed,2
+RW968253,Document attributes changed,1
+RX333449,Document attributes changed,11
+RX341406,Document attributes changed,2
+RX506641,Document attributes changed,1
+RX764374,Document attributes changed,1
+RX764386,Document attributes changed,1
+RX872760,Document attributes changed,1
+RY675587,Document attributes changed,2
+RY825195,Document attributes changed,2
+RY862437,Document attributes changed,3
+RY936271,Document attributes changed,1
+RY954808,Document attributes changed,1
+RZ170376,Document attributes changed,2
+RZ215907,Document attributes changed,5
+RZ225252,Document attributes changed,1
+RZ243056,Document attributes changed,1
+RZ349765,Document attributes changed,1
+RZ353612,Document attributes changed,13
+UA002812,Document attributes changed,2
+UA008181,Document attributes changed,1
+UA012185,Document attributes changed,5
+IC105265,Document attributes changed,41
+IC126466,Document attributes changed,1
+IC167694,Document attributes changed,1
+IC211299,Document attributes changed,1
+IC231300,Document attributes changed,1
+IC251429,Document attributes changed,1
+IC259292,Document attributes changed,1
+IC267577,Document attributes changed,1
+IC269846,Document attributes changed,1
+IC271845,Document attributes changed,1
+IC278685,Document attributes changed,1
+IC290375,Document attributes changed,1
+IC294545,Document attributes changed,1
+RO681110,Document attributes changed,2
+RP288794,Document attributes changed,2
+RP336825,Document attributes changed,1
+RQ345584,Document attributes changed,1
+RQ420721,Document attributes changed,2
+RU404645,Document attributes changed,1
+RV396087,Document attributes changed,1
+RV487094,Document attributes changed,4
+RV779914,Document attributes changed,1
+RW194975,Document attributes changed,7
+RW850300,Document attributes changed,2
+RW906518,Document attributes changed,1
+RW921851,Document attributes changed,1
+RW928387,Document attributes changed,2
+RX294895,Document attributes changed,1
+RX295117,Document attributes changed,2
+RX324604,Document attributes changed,1
+RX784893,Document attributes changed,1
+RX810293,Document attributes changed,10
+RY139830,Document attributes changed,2
+RY231394,Document attributes changed,1
+RY286263,Document attributes changed,2
+RY548714,Document attributes changed,1
+RY690241,Document attributes changed,1
+RY728392,Document attributes changed,29
+RY867408,Document attributes changed,1
+RY901575,Document attributes changed,1
+RY909900,Document attributes changed,2
+RY991781,Document attributes changed,4
+RZ132526,Document attributes changed,1
+RZ139387,Document attributes changed,4
+RZ185453,Document attributes changed,1
+RZ208418,Document attributes changed,1
+RZ216185,Document attributes changed,1
+RZ246937,Document attributes changed,1
+RZ278225,Document attributes changed,1
+RZ319835,Document attributes changed,2
+RZ320129,Document attributes changed,4
+RZ337723,Document attributes changed,1
+UA009954,Document attributes changed,1
+UA012189,Document attributes changed,65
+IC108409,Edit attributes dialog opened,17
 IC118451,Edit attributes dialog opened,34
 IC123981,Edit attributes dialog opened,1
-IC132270,Edit attributes dialog opened,5
-IC140080,Edit attributes dialog opened,10
-IC140677,Edit attributes dialog opened,23
-IC148491,Edit attributes dialog opened,29
+IC132270,Edit attributes dialog opened,35
+IC140080,Edit attributes dialog opened,28
+IC140677,Edit attributes dialog opened,43
+IC148491,Edit attributes dialog opened,60
 IC149153,Edit attributes dialog opened,14
-IC152940,Edit attributes dialog opened,6
-IC204728,Edit attributes dialog opened,1
-IC208286,Edit attributes dialog opened,6
-IC230839,Edit attributes dialog opened,1
-IC239430,Edit attributes dialog opened,40
-IC248683,Edit attributes dialog opened,3
-IC250881,Edit attributes dialog opened,1
-IC251427,Edit attributes dialog opened,23
+IC152940,Edit attributes dialog opened,47
+IC204728,Edit attributes dialog opened,7
+IC208286,Edit attributes dialog opened,9
+IC230839,Edit attributes dialog opened,3
+IC239430,Edit attributes dialog opened,107
+IC248683,Edit attributes dialog opened,15
+IC250881,Edit attributes dialog opened,3
+IC251427,Edit attributes dialog opened,123
 IC251428,Edit attributes dialog opened,1
-IC251430,Edit attributes dialog opened,41
-IC251433,Edit attributes dialog opened,8
-IC251435,Edit attributes dialog opened,4
-IC251437,Edit attributes dialog opened,28
-IC251438,Edit attributes dialog opened,20
-IC254729,Edit attributes dialog opened,1
-IC255897,Edit attributes dialog opened,3
-IC261999,Edit attributes dialog opened,2
+IC251430,Edit attributes dialog opened,50
+IC251433,Edit attributes dialog opened,69
+IC251435,Edit attributes dialog opened,106
+IC251437,Edit attributes dialog opened,151
+IC251438,Edit attributes dialog opened,50
+IC254729,Edit attributes dialog opened,10
+IC255897,Edit attributes dialog opened,18
+IC261999,Edit attributes dialog opened,7
 IC263320,Edit attributes dialog opened,2
-IC267484,Edit attributes dialog opened,1
-IC276267,Edit attributes dialog opened,14
+IC267484,Edit attributes dialog opened,4
+IC276267,Edit attributes dialog opened,15
 IC290336,Edit attributes dialog opened,1
-RO177899,Edit attributes dialog opened,3
-RO496362,Edit attributes dialog opened,1
-RO603627,Edit attributes dialog opened,5
-RO644257,Edit attributes dialog opened,6
-RP401704,Edit attributes dialog opened,13
-RQ346307,Edit attributes dialog opened,6
-RQ865554,Edit attributes dialog opened,5
+RO177899,Edit attributes dialog opened,4
+RO496362,Edit attributes dialog opened,100
+RO603627,Edit attributes dialog opened,7
+RO644257,Edit attributes dialog opened,13
+RP401704,Edit attributes dialog opened,53
+RQ346307,Edit attributes dialog opened,10
+RQ865554,Edit attributes dialog opened,6
 RT101173,Edit attributes dialog opened,1
-RT193227,Edit attributes dialog opened,1
-RT936312,Edit attributes dialog opened,2
+RT193227,Edit attributes dialog opened,2
+RT936312,Edit attributes dialog opened,17
 RU699691,Edit attributes dialog opened,5
-RV344229,Edit attributes dialog opened,3
-RV644673,Edit attributes dialog opened,7
-RV804959,Edit attributes dialog opened,1
-RW921944,Edit attributes dialog opened,3
-RX126807,Edit attributes dialog opened,1
+RV344229,Edit attributes dialog opened,7
+RV644673,Edit attributes dialog opened,14
+RV804959,Edit attributes dialog opened,5
+RW921944,Edit attributes dialog opened,6
+RX126807,Edit attributes dialog opened,4
 RX127644,Edit attributes dialog opened,59
 RX170884,Edit attributes dialog opened,10
 RX179315,Edit attributes dialog opened,4
-RX223649,Edit attributes dialog opened,4
-RX422190,Edit attributes dialog opened,8
+RX223649,Edit attributes dialog opened,19
+RX422190,Edit attributes dialog opened,69
 RX456816,Edit attributes dialog opened,3
-RX610864,Edit attributes dialog opened,3
-RX630961,Edit attributes dialog opened,13
-RX764383,Edit attributes dialog opened,1
+RX610864,Edit attributes dialog opened,6
+RX630961,Edit attributes dialog opened,22
+RX764383,Edit attributes dialog opened,23
 RX783027,Edit attributes dialog opened,1
-RX785627,Edit attributes dialog opened,2
-RX826755,Edit attributes dialog opened,5
+RX785627,Edit attributes dialog opened,5
+RX826755,Edit attributes dialog opened,12
 RY1006893,Edit attributes dialog opened,1
-RY114679,Edit attributes dialog opened,4
+RY114679,Edit attributes dialog opened,14
 RY144215,Edit attributes dialog opened,1
-RY148065,Edit attributes dialog opened,2
-RY247959,Edit attributes dialog opened,15
+RY148065,Edit attributes dialog opened,10
+RY247959,Edit attributes dialog opened,61
 RY301396,Edit attributes dialog opened,2
-RY496095,Edit attributes dialog opened,1
-RY584648,Edit attributes dialog opened,1
-RY690241,Edit attributes dialog opened,1
-RY699607,Edit attributes dialog opened,2
+RY496095,Edit attributes dialog opened,3
+RY584648,Edit attributes dialog opened,5
+RY690241,Edit attributes dialog opened,2
+RY699607,Edit attributes dialog opened,3
 RY857098,Edit attributes dialog opened,2
-RY871083,Edit attributes dialog opened,1
-RY903861,Edit attributes dialog opened,2
-RY932140,Edit attributes dialog opened,300
-RY991185,Edit attributes dialog opened,1
+RY871083,Edit attributes dialog opened,2
+RY903861,Edit attributes dialog opened,4
+RY932140,Edit attributes dialog opened,606
+RY991185,Edit attributes dialog opened,2
 RY995467,Edit attributes dialog opened,12
-RZ179598,Edit attributes dialog opened,11
+RZ179598,Edit attributes dialog opened,43
 RZ205873,Edit attributes dialog opened,1
-RZ242259,Edit attributes dialog opened,97
-RZ265801,Edit attributes dialog opened,1
-RZ274487,Edit attributes dialog opened,5
-RZ290047,Edit attributes dialog opened,49
-RZ319892,Edit attributes dialog opened,29
-RZ331874,Edit attributes dialog opened,8
+RZ242259,Edit attributes dialog opened,175
+RZ265801,Edit attributes dialog opened,19
+RZ274487,Edit attributes dialog opened,15
+RZ290047,Edit attributes dialog opened,115
+RZ319892,Edit attributes dialog opened,78
+RZ331874,Edit attributes dialog opened,21
 UA006573,Edit attributes dialog opened,4
-UA006575,Edit attributes dialog opened,1
+UA006575,Edit attributes dialog opened,4
 UA006910,Edit attributes dialog opened,2
-UA011900,Edit attributes dialog opened,4
-IC120249,Edit attributes dialog opened,2
-IC140082,Edit attributes dialog opened,4
-IC160123,Edit attributes dialog opened,4
-IC175991,Edit attributes dialog opened,1
+UA011900,Edit attributes dialog opened,14
+IC120249,Edit attributes dialog opened,4
+IC140082,Edit attributes dialog opened,15
+IC160123,Edit attributes dialog opened,7
+IC175991,Edit attributes dialog opened,3
 IC206777,Edit attributes dialog opened,1
-IC246870,Edit attributes dialog opened,24
+IC246870,Edit attributes dialog opened,40
 IC269962,Edit attributes dialog opened,2
 IC283426,Edit attributes dialog opened,10
 IC284008,Edit attributes dialog opened,5
-IC287882,Edit attributes dialog opened,1
+IC287882,Edit attributes dialog opened,2
 IC294601,Edit attributes dialog opened,1
-RO654379,Edit attributes dialog opened,2
-RO779984,Edit attributes dialog opened,1
-RP213038,Edit attributes dialog opened,1
-RP667760,Edit attributes dialog opened,2
-RQ147863,Edit attributes dialog opened,2
-RQ579208,Edit attributes dialog opened,1
-RU389639,Edit attributes dialog opened,9
-RV754723,Edit attributes dialog opened,4
+RO654379,Edit attributes dialog opened,12
+RO779984,Edit attributes dialog opened,5
+RP213038,Edit attributes dialog opened,2
+RP667760,Edit attributes dialog opened,4
+RQ147863,Edit attributes dialog opened,7
+RQ579208,Edit attributes dialog opened,21
+RU389639,Edit attributes dialog opened,77
+RV754723,Edit attributes dialog opened,32
 RV924363,Edit attributes dialog opened,2
 RW783587,Edit attributes dialog opened,1
 RW885639,Edit attributes dialog opened,2
-RW906257,Edit attributes dialog opened,1
-RW912949,Edit attributes dialog opened,6
+RW906257,Edit attributes dialog opened,3
+RW912949,Edit attributes dialog opened,69
 RX345785,Edit attributes dialog opened,1
-RX634298,Edit attributes dialog opened,3
-RX789096,Edit attributes dialog opened,118
-RX831054,Edit attributes dialog opened,1
-RX865723,Edit attributes dialog opened,1
-RX937323,Edit attributes dialog opened,7
+RX634298,Edit attributes dialog opened,5
+RX789096,Edit attributes dialog opened,131
+RX831054,Edit attributes dialog opened,3
+RX865723,Edit attributes dialog opened,50
+RX937323,Edit attributes dialog opened,10
 RY233717,Edit attributes dialog opened,1
 RY239925,Edit attributes dialog opened,1
-RY268368,Edit attributes dialog opened,3
-RY376319,Edit attributes dialog opened,1
+RY268368,Edit attributes dialog opened,22
+RY376319,Edit attributes dialog opened,2
 RY662922,Edit attributes dialog opened,1
 RY671379,Edit attributes dialog opened,2
-RY674766,Edit attributes dialog opened,7
-RY687189,Edit attributes dialog opened,4
-RY704716,Edit attributes dialog opened,2
-RY853880,Edit attributes dialog opened,5
-RY866165,Edit attributes dialog opened,5
-RY905786,Edit attributes dialog opened,1
+RY674766,Edit attributes dialog opened,53
+RY687189,Edit attributes dialog opened,9
+RY704716,Edit attributes dialog opened,4
+RY853880,Edit attributes dialog opened,7
+RY866165,Edit attributes dialog opened,44
+RY905786,Edit attributes dialog opened,4
 RY929679,Edit attributes dialog opened,3
 RY962412,Edit attributes dialog opened,92
-RY963394,Edit attributes dialog opened,8
+RY963394,Edit attributes dialog opened,16
 RY984793,Edit attributes dialog opened,8
-RZ142649,Edit attributes dialog opened,1
-RZ149789,Edit attributes dialog opened,1
+RZ142649,Edit attributes dialog opened,37
+RZ149789,Edit attributes dialog opened,4
 RZ172949,Edit attributes dialog opened,1
 RZ179504,Edit attributes dialog opened,1
-RZ180496,Edit attributes dialog opened,12
-RZ211997,Edit attributes dialog opened,5
+RZ180496,Edit attributes dialog opened,15
+RZ211997,Edit attributes dialog opened,12
 RZ215990,Edit attributes dialog opened,1
 RZ272335,Edit attributes dialog opened,2
 RZ314089,Edit attributes dialog opened,1
 RZ346888,Edit attributes dialog opened,8
-UA000602,Edit attributes dialog opened,1
-UA005728,Edit attributes dialog opened,2
+UA000602,Edit attributes dialog opened,52
+UA005728,Edit attributes dialog opened,3
+IC137826,Edit attributes dialog opened,2
+IC214007,Edit attributes dialog opened,4
+IC242095,Edit attributes dialog opened,7
+IC269017,Edit attributes dialog opened,9
+IC277740,Edit attributes dialog opened,10
+IC279781,Edit attributes dialog opened,2
+IC281076,Edit attributes dialog opened,18
+RO443969,Edit attributes dialog opened,10
+RO488588,Edit attributes dialog opened,50
+RO522721,Edit attributes dialog opened,5
+RP141235,Edit attributes dialog opened,16
+RP213523,Edit attributes dialog opened,2
+RQ883092,Edit attributes dialog opened,3
+RT527432,Edit attributes dialog opened,1
+RU478482,Edit attributes dialog opened,3
+RW847315,Edit attributes dialog opened,1
+RW919786,Edit attributes dialog opened,3
+RW982470,Edit attributes dialog opened,11
+RX322855,Edit attributes dialog opened,8
+RX558567,Edit attributes dialog opened,1
+RY236929,Edit attributes dialog opened,2
+RY273199,Edit attributes dialog opened,2
+RY458694,Edit attributes dialog opened,1
+RY530625,Edit attributes dialog opened,2
+RY588080,Edit attributes dialog opened,1
+RY589787,Edit attributes dialog opened,9
+RY621822,Edit attributes dialog opened,2
+RY991180,Edit attributes dialog opened,1
+RZ242021,Edit attributes dialog opened,9
+RZ242263,Edit attributes dialog opened,20
+RZ300041,Edit attributes dialog opened,1
+UA004507,Edit attributes dialog opened,2
+UA007093,Edit attributes dialog opened,1
+IC110310,Edit attributes dialog opened,2
+IC151721,Edit attributes dialog opened,1
+IC175786,Edit attributes dialog opened,2
+IC209159,Edit attributes dialog opened,13
+IC250086,Edit attributes dialog opened,6
+IC258788,Edit attributes dialog opened,5
+IC267837,Edit attributes dialog opened,2
+IC282225,Edit attributes dialog opened,19
+IC283107,Edit attributes dialog opened,7
+RO398329,Edit attributes dialog opened,8
+RO523770,Edit attributes dialog opened,1
+RO523801,Edit attributes dialog opened,5
+RO523829,Edit attributes dialog opened,3
+RO712656,Edit attributes dialog opened,1
+RP119962,Edit attributes dialog opened,3
+RP482964,Edit attributes dialog opened,3
+RQ441204,Edit attributes dialog opened,16
+RQ578194,Edit attributes dialog opened,48
+RS634748,Edit attributes dialog opened,3
+RV105428,Edit attributes dialog opened,1
+RV450503,Edit attributes dialog opened,5
+RV669791,Edit attributes dialog opened,27
+RW744108,Edit attributes dialog opened,3
+RW765467,Edit attributes dialog opened,6
+RW906894,Edit attributes dialog opened,7
+RX105301,Edit attributes dialog opened,1
+RX230552,Edit attributes dialog opened,1
+RX253403,Edit attributes dialog opened,1
+RX602355,Edit attributes dialog opened,30
+RX702166,Edit attributes dialog opened,1
+RY1010490,Edit attributes dialog opened,1
+RY137793,Edit attributes dialog opened,3
+RY290347,Edit attributes dialog opened,1
+RY478409,Edit attributes dialog opened,1
+RY853226,Edit attributes dialog opened,1
+RY861676,Edit attributes dialog opened,16
+RY867826,Edit attributes dialog opened,3
+RY892276,Edit attributes dialog opened,1
+RY898807,Edit attributes dialog opened,1
+RY953347,Edit attributes dialog opened,1
+RY991301,Edit attributes dialog opened,1
+RZ180805,Edit attributes dialog opened,1
+RZ250809,Edit attributes dialog opened,2
+RZ278014,Edit attributes dialog opened,1
+RZ325210,Edit attributes dialog opened,1
+RZ331860,Edit attributes dialog opened,2
+IC208329,Edit attributes dialog opened,1
+IC224258,Edit attributes dialog opened,2
+IC259197,Edit attributes dialog opened,6
+IC280334,Edit attributes dialog opened,1
+IC293892,Edit attributes dialog opened,261
+RO216741,Edit attributes dialog opened,1
+RP131575,Edit attributes dialog opened,2
+RP432683,Edit attributes dialog opened,3
+RP830570,Edit attributes dialog opened,2
+RV884186,Edit attributes dialog opened,1
+RV918372,Edit attributes dialog opened,6
+RW770165,Edit attributes dialog opened,5
+RX330071,Edit attributes dialog opened,1
+RX430049,Edit attributes dialog opened,5
+RX583969,Edit attributes dialog opened,2
+RX630721,Edit attributes dialog opened,3
+RX868382,Edit attributes dialog opened,7
+RY297860,Edit attributes dialog opened,1
+RY504768,Edit attributes dialog opened,1
+RY541328,Edit attributes dialog opened,1
+RY600894,Edit attributes dialog opened,1
+RY654788,Edit attributes dialog opened,3
+RY789128,Edit attributes dialog opened,10
+RY984786,Edit attributes dialog opened,2
+RZ321613,Edit attributes dialog opened,5
+UA000711,Edit attributes dialog opened,1
+UA011912,Edit attributes dialog opened,8
+IC183157,Edit attributes dialog opened,1
+IC240466,Edit attributes dialog opened,2
+IC290930,Edit attributes dialog opened,1
+RO219477,Edit attributes dialog opened,3
+RO431996,Edit attributes dialog opened,1
+RO707913,Edit attributes dialog opened,8
+RP556456,Edit attributes dialog opened,8
+RU262723,Edit attributes dialog opened,60
+RU602389,Edit attributes dialog opened,2
+RV805794,Edit attributes dialog opened,2
+RW968253,Edit attributes dialog opened,1
+RX764386,Edit attributes dialog opened,1
+RY832185,Edit attributes dialog opened,1
+RY944230,Edit attributes dialog opened,1
+RZ170376,Edit attributes dialog opened,2
+RZ175616,Edit attributes dialog opened,1
+RZ225252,Edit attributes dialog opened,1
+RZ243056,Edit attributes dialog opened,2
+RZ353612,Edit attributes dialog opened,14
+UA008181,Edit attributes dialog opened,1
+IC121159,Edit attributes dialog opened,1
+IC126466,Edit attributes dialog opened,1
+IC209152,Edit attributes dialog opened,1
+IC259292,Edit attributes dialog opened,1
+IC269846,Edit attributes dialog opened,1
+IC290375,Edit attributes dialog opened,1
+RO681110,Edit attributes dialog opened,2
+RU404645,Edit attributes dialog opened,1
+RV396087,Edit attributes dialog opened,1
+RV487094,Edit attributes dialog opened,3
+RV779914,Edit attributes dialog opened,1
+RW921851,Edit attributes dialog opened,1
+RX295117,Edit attributes dialog opened,3
+RX784893,Edit attributes dialog opened,1
+RY231394,Edit attributes dialog opened,1
+RY298692,Edit attributes dialog opened,1
+RY728392,Edit attributes dialog opened,29
+RY867408,Edit attributes dialog opened,1
+RY901575,Edit attributes dialog opened,1
+RY952849,Edit attributes dialog opened,1
+RY991781,Edit attributes dialog opened,4
+RZ185453,Edit attributes dialog opened,1
+RZ208418,Edit attributes dialog opened,1
+RZ278225,Edit attributes dialog opened,1
+RZ319835,Edit attributes dialog opened,2
+RZ337723,Edit attributes dialog opened,1

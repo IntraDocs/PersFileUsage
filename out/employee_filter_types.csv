@@ -1,7 +1,8 @@
 filter_type,total_usage,unique_users,different_fields
-single_word,8820,2952,8
->=[value],8320,2895,1
-<[value],249,191,1
-multiple_words,172,138,6
+single_word,30952,5145,8
+>=[value],29196,5114,1
+<[value],835,530,2
+multiple_words,597,434,8
+=[value],18,3,1
 empty,2,2,1
-=[value],1,1,1
+>[value],1,1,1

@@ -1,8 +1,8 @@
 metric,value
-total_folder_selections,21520
-users_using_folders,2163
-total_users_in_system,5026
-percentage_users_using_folders,43.0
-different_folders_available,802
+total_folder_selections,75273
+users_using_folders,5099
+total_users_in_system,9766
+percentage_users_using_folders,52.2
+different_folders_available,1121
 most_popular_folder,Medewerker dossier
-avg_selections_per_user,9.9
+avg_selections_per_user,14.8

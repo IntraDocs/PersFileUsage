@@ -1,4 +1,4 @@
 result_type,result_type_description,total_exports,unique_users,avg_file_size_bytes
-overall,All Types,48,20,
-rs,ResultSet,35,7,32.92628571428572
-mr,mr,13,13,15.703076923076924
+overall,All Types,245,83,
+rs,ResultSet,178,31,38.250112359550556
+mr,mr,67,52,19.945074626865672
