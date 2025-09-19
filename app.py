@@ -19,6 +19,7 @@ csv_path = Path("out/user_agents.csv")
 hourly_path = Path("out/hourly_active_users.csv")
 daily_path = Path("out/daily_active_users.csv")
 peak_hours_path = Path("out/peak_hours_analysis.csv")
+user_activity_summary_path = Path("out/user_activity_summary.csv")
 
 # Sort usage data paths
 sort_field_path = Path("out/sort_field_summary.csv")
@@ -68,6 +69,10 @@ if daily_path.exists():
     daily_df = pl.read_csv(daily_path)
 if peak_hours_path.exists():
     peak_hours_df = pl.read_csv(peak_hours_path)
+user_activity_summary_df = None
+if user_activity_summary_path.exists():
+    # Per-user per-day summary (we'll use it to get distinct users across the full period)
+    user_activity_summary_df = pl.read_csv(user_activity_summary_path)
 
 # Load sort usage data if available
 sort_field_df = None
@@ -312,13 +317,28 @@ with tab2:
             st.subheader("Daily Activity Overview")
             col1, col2, col3 = st.columns(3)
             
-            total_unique_users = daily_df["unique_users"].sum()
+            # Correct calculation: total unique users across the full period (distinct user_ids)
+            if user_activity_summary_df is not None and user_activity_summary_df.height > 0:
+                total_unique_users = (
+                    user_activity_summary_df.select(pl.col("user_id").n_unique()).item()
+                )
+            else:
+                # Fallback (less accurate): distinct users derived from hourly data if available
+                if hourly_df is not None and hourly_df.height > 0 and "user_id" in hourly_df.columns:
+                    total_unique_users = hourly_df.select(pl.col("user_id").n_unique()).item()
+                else:
+                    # Last resort (overestimates): sum of per-day uniques
+                    total_unique_users = int(daily_df["unique_users"].sum())
+
             avg_daily_users = daily_df["unique_users"].mean()
             max_daily_users = daily_df["unique_users"].max()
             
-            col1.metric("Total Unique Users", total_unique_users)
+            col1.metric("Unieke gebruikers (periode)", total_unique_users)
             col2.metric("Avg Daily Users", f"{avg_daily_users:.1f}")
             col3.metric("Peak Daily Users", max_daily_users)
+
+            # Explain methodology to avoid confusion
+            st.caption("'Unieke gebruikers (periode)' telt iedere gebruiker slechts één keer over alle dagen heen. Voorheen werd een optelsom van dagelijkse unieke gebruikers getoond, wat dubbel telde voor gebruikers actief op meerdere dagen.")
             
             # Daily users chart
             daily_chart = (
